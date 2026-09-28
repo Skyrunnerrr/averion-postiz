@@ -1,0 +1,31 @@
+{
+  "SOURCE_SHA": "c3f00d015c591d7927e338f4641c1b1b379c733d",
+  "LOCKFILE_SHA256": "75b7a994e472d48be947fd6a9e538b65028827210d802abe60543727a99650bf",
+  "IMAGE_DIGEST": "sha256:d599c500baac8929c801daee926f5a8a3d9bcaaee3867dd20b30eb44cafebcb6",
+  "BUILD_TIMESTAMP": "2026-09-28T08:05:37Z",
+  "BASE_IMAGE": "nginx:1.27.5-alpine@sha256:62223d644fa234c3a1cc785ee14242ec47a77364226f1c811d2f669f96dc2ac8",
+  "LIVE_INFRA": "SIMULATED",
+  "SBOM": "averion/provider-deployment/provenance/sbom.cdx.json",
+  "LICENSE_MANIFEST": "averion/provider-deployment/provenance/license-manifest.json",
+  "packageCount": 3985,
+  "noassertionCount": 12,
+  "routes": 296,
+  "egressEntries": 117,
+  "gates": {
+    "INGRESS_MATRIX": "PASS",
+    "EGRESS_MAP": "PASS",
+    "PROVIDER_IMAGES_REPRODUCIBLE": "PASS",
+    "IMAGE_DIGEST": "PASS",
+    "SECRET_INJECTION": "PASS",
+    "READINESS_FAIL_CLOSED": "PASS",
+    "WRITE_BYPASS_RED_TEAM": "PASS",
+    "SBOM": "PASS",
+    "LICENSE_MANIFEST": "PASS"
+  },
+  "notes": [
+    "LIVE_INFRA=SIMULATED. No cluster and no container daemon. The edge was proven with host nginx using the committed config.",
+    "IMAGE_DIGEST is the provider edge (nginx 1.27.5-alpine pinned by manifest sha256:62223d644fa234c3a1cc785ee14242ec47a77364226f1c811d2f669f96dc2ac8 plus the deployment layer). Dockerfile.dev was not built.",
+    "External egress is default-deny in the network policy. Meta hosts are an exact allowlist for a later FQDN controller. No live Meta calls.",
+    "Twelve lockfile packages have license NOASSERTION. They are listed in the license manifest."
+  ]
+}

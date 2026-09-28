@@ -1,0 +1,6 @@
+image:
+  repository: averion/postiz-provider
+  digest: ""
+replicaCount: 1
+service:
+  port: 5000

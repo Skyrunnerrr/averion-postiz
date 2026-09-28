@@ -1,0 +1,1065 @@
+{
+  "version": 1,
+  "sourceSha": "c3f00d015c591d7927e338f4641c1b1b379c733d",
+  "defaultClass": "DENY",
+  "match": "exact-host",
+  "entries": [
+    {
+      "host": "affiliate.postiz.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/layout/top.menu.tsx"
+      ]
+    },
+    {
+      "host": "agent-media.ai",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/backend/src/api/routes/users.controller.ts"
+      ]
+    },
+    {
+      "host": "api-sandbox.pinterest.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/dribbble.provider.ts"
+      ]
+    },
+    {
+      "host": "api.beehiiv.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/newsletter/providers/beehiiv.provider.ts"
+      ]
+    },
+    {
+      "host": "api.deepgram.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/deepgram/deepgram.service.ts"
+      ]
+    },
+    {
+      "host": "api.dribbble.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/dribbble.provider.ts"
+      ]
+    },
+    {
+      "host": "api.dub.co",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/short-linking/providers/dub.ts"
+      ]
+    },
+    {
+      "host": "api.elevenlabs.io",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/videos/images-slides/images.slides.ts"
+      ]
+    },
+    {
+      "host": "api.evolink.ai",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/videos/seedance/seedance.ts"
+      ]
+    },
+    {
+      "host": "api.github.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/backend/src/services/auth/providers/github.provider.ts"
+      ]
+    },
+    {
+      "host": "api.heygen.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/3rdparties/heygen/heygen.provider.ts"
+      ]
+    },
+    {
+      "host": "api.instagram.com",
+      "class": "ALLOW",
+      "purpose": "Meta provider API or OAuth host",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/instagram.standalone.provider.ts"
+      ]
+    },
+    {
+      "host": "api.kick.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/kick.provider.ts"
+      ]
+    },
+    {
+      "host": "api.linkdrip.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/short-linking/providers/linkdrip.ts"
+      ]
+    },
+    {
+      "host": "api.linkedin.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/linkedin.page.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/linkedin.provider.ts"
+      ]
+    },
+    {
+      "host": "api.medium.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/medium.provider.ts"
+      ]
+    },
+    {
+      "host": "api.pinterest.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/pinterest.provider.ts"
+      ]
+    },
+    {
+      "host": "api.postiz.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/sdk/src/index.ts"
+      ]
+    },
+    {
+      "host": "api.revenuecat.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/services/payment/providers/revenuecat.provider.ts"
+      ]
+    },
+    {
+      "host": "api.runpod.ai",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/upload/runpod.media.processor.ts"
+      ]
+    },
+    {
+      "host": "api.short.io",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/short-linking/providers/short.io.ts"
+      ]
+    },
+    {
+      "host": "api.tumblr.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/tumblr.provider.ts"
+      ]
+    },
+    {
+      "host": "api.twitch.tv",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/twitch.provider.ts"
+      ]
+    },
+    {
+      "host": "api.vk.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/vk.provider.ts"
+      ]
+    },
+    {
+      "host": "api.whop.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/whop.provider.ts"
+      ]
+    },
+    {
+      "host": "api.x.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/x.provider.ts"
+      ]
+    },
+    {
+      "host": "api2.skool.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/skool.provider.ts"
+      ]
+    },
+    {
+      "host": "appleid.apple.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/backend/src/services/auth/providers/apple.provider.ts"
+      ]
+    },
+    {
+      "host": "bsky.app",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/bluesky.provider.ts"
+      ]
+    },
+    {
+      "host": "bsky.social",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/bluesky.provider.ts"
+      ]
+    },
+    {
+      "host": "business-api.tiktok.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/tiktok.business.provider.ts"
+      ]
+    },
+    {
+      "host": "business.google.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/gmb.provider.ts"
+      ]
+    },
+    {
+      "host": "businessprofileperformance.googleapis.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/gmb.provider.ts"
+      ]
+    },
+    {
+      "host": "cdn.discordapp.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/discord.provider.ts"
+      ]
+    },
+    {
+      "host": "cdn.hashnode.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/hashnode.tags.ts"
+      ]
+    },
+    {
+      "host": "chatgpt.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/public-api/public.component.tsx"
+      ]
+    },
+    {
+      "host": "chromewebstore.google.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/launches/add.provider.component.tsx",
+        "apps/frontend/src/components/layout/chrome.extension.component.tsx"
+      ]
+    },
+    {
+      "host": "claude.ai",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/public-api/public.component.tsx"
+      ]
+    },
+    {
+      "host": "connect.facebook.net",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/public/f.js"
+      ]
+    },
+    {
+      "host": "cursor.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/public-api/public.component.tsx"
+      ]
+    },
+    {
+      "host": "datafa.st",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/backend/src/services/auth/auth.service.ts",
+        "apps/frontend/src/app/(app)/layout.tsx"
+      ]
+    },
+    {
+      "host": "dev.to",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/dev.to.provider.ts"
+      ]
+    },
+    {
+      "host": "devcommunity.x.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/x.provider.ts"
+      ]
+    },
+    {
+      "host": "developers.facebook.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/public/f.js",
+        "libraries/nestjs-libraries/src/integrations/social/instagram.provider.ts"
+      ]
+    },
+    {
+      "host": "discord.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/discord.provider.ts"
+      ]
+    },
+    {
+      "host": "docs.postiz.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/developer/developer.component.tsx",
+        "apps/frontend/src/components/onboarding/onboarding.modal.tsx",
+        "apps/frontend/src/components/public-api/public.component.tsx"
+      ]
+    },
+    {
+      "host": "dribbble.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/dribbble.provider.ts"
+      ]
+    },
+    {
+      "host": "example.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/new-launch/providers/gmb/gmb.provider.tsx"
+      ]
+    },
+    {
+      "host": "facebook.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/webhooks/webhooks.tsx"
+      ]
+    },
+    {
+      "host": "fal.run",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/openai/fal.service.ts"
+      ]
+    },
+    {
+      "host": "github.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/backend/src/services/auth/providers/github.provider.ts",
+        "apps/frontend/public/f.js",
+        "apps/frontend/src/components/billing/faq.component.tsx"
+      ]
+    },
+    {
+      "host": "gql-beta.hashnode.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/hashnode.provider.ts"
+      ]
+    },
+    {
+      "host": "graph.facebook.com",
+      "class": "ALLOW",
+      "purpose": "Meta provider API or OAuth host",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/facebook.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/instagram.provider.ts"
+      ]
+    },
+    {
+      "host": "graph.instagram.com",
+      "class": "ALLOW",
+      "purpose": "Meta provider API or OAuth host",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/instagram.standalone.provider.ts"
+      ]
+    },
+    {
+      "host": "graph.threads.net",
+      "class": "ALLOW",
+      "purpose": "Meta provider API or OAuth host",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/threads.provider.ts"
+      ]
+    },
+    {
+      "host": "id.kick.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/kick.provider.ts"
+      ]
+    },
+    {
+      "host": "id.twitch.tv",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/twitch.provider.ts"
+      ]
+    },
+    {
+      "host": "id.vk.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/vk.provider.ts"
+      ]
+    },
+    {
+      "host": "kick.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/kick.provider.ts"
+      ]
+    },
+    {
+      "host": "kube-dns",
+      "class": "PRIVATE",
+      "purpose": "Cluster DNS",
+      "sources": [
+        "averion/provider-deployment/k8s/networkpolicy.yaml"
+      ]
+    },
+    {
+      "host": "kutt.it",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/short-linking/providers/kutt.ts"
+      ]
+    },
+    {
+      "host": "learn.microsoft.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/linkedin.provider.ts"
+      ]
+    },
+    {
+      "host": "lemmy.world",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/lemmy.provider.ts"
+      ]
+    },
+    {
+      "host": "mastodon.social",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/mastodon.custom.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/mastodon.provider.ts"
+      ]
+    },
+    {
+      "host": "mewe.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/mewe.provider.ts"
+      ]
+    },
+    {
+      "host": "modelcontextprotocol.io",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/chat/oauth-middleware.ts",
+        "libraries/nestjs-libraries/src/chat/oauth-types.ts"
+      ]
+    },
+    {
+      "host": "mybusiness.googleapis.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/gmb.provider.ts"
+      ]
+    },
+    {
+      "host": "mybusinessaccountmanagement.googleapis.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/gmb.provider.ts"
+      ]
+    },
+    {
+      "host": "mybusinessbusinessinformation.googleapis.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/gmb.provider.ts"
+      ]
+    },
+    {
+      "host": "oauth.reddit.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/reddit.provider.ts"
+      ]
+    },
+    {
+      "host": "open.tiktokapis.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/tiktok.provider.ts"
+      ]
+    },
+    {
+      "host": "postiz-postgres",
+      "class": "PRIVATE",
+      "purpose": "Postgres",
+      "sources": [
+        "averion/provider-deployment/k8s/networkpolicy.yaml"
+      ]
+    },
+    {
+      "host": "postiz-redis",
+      "class": "PRIVATE",
+      "purpose": "Redis",
+      "sources": [
+        "averion/provider-deployment/k8s/networkpolicy.yaml"
+      ]
+    },
+    {
+      "host": "postiz.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/auth/register.tsx",
+        "libraries/nestjs-libraries/src/database/prisma/agencies/agencies.service.ts",
+        "libraries/nestjs-libraries/src/integrations/social/tumblr.provider.ts"
+      ]
+    },
+    {
+      "host": "primal.net",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/nostr.provider.ts"
+      ]
+    },
+    {
+      "host": "provider.example",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/instagram.standalone.scopes.spec.ts"
+      ]
+    },
+    {
+      "host": "redirectmeto.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/backend/src/services/auth/providers/apple.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/instagram.standalone.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/slack.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/threads.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/tiktok.business.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/tiktok.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/vk.provider.ts"
+      ]
+    },
+    {
+      "host": "reel.farm",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/3rdparties/reelfarm/reelfarm.provider.ts"
+      ]
+    },
+    {
+      "host": "res.cloudinary.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/hashnode.tags.ts"
+      ]
+    },
+    {
+      "host": "schema.org",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/public/f.js"
+      ]
+    },
+    {
+      "host": "site.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/wordpress.provider.ts"
+      ]
+    },
+    {
+      "host": "slack.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/slack.provider.ts"
+      ]
+    },
+    {
+      "host": "statistics.short.io",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/short-linking/providers/short.io.ts"
+      ]
+    },
+    {
+      "host": "t.me",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/telegram.provider.ts"
+      ]
+    },
+    {
+      "host": "temporal",
+      "class": "PRIVATE",
+      "purpose": "Temporal frontend",
+      "sources": [
+        "averion/provider-deployment/k8s/networkpolicy.yaml"
+      ]
+    },
+    {
+      "host": "temporal-elasticsearch",
+      "class": "PRIVATE",
+      "purpose": "Temporal search",
+      "sources": [
+        "averion/provider-deployment/k8s/networkpolicy.yaml"
+      ]
+    },
+    {
+      "host": "temporal-postgresql",
+      "class": "PRIVATE",
+      "purpose": "Temporal database",
+      "sources": [
+        "averion/provider-deployment/k8s/networkpolicy.yaml"
+      ]
+    },
+    {
+      "host": "twitch.tv",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/twitch.provider.ts"
+      ]
+    },
+    {
+      "host": "twitter.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/x.provider.ts"
+      ]
+    },
+    {
+      "host": "uploads.gitroom.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/webhooks/webhooks.tsx"
+      ]
+    },
+    {
+      "host": "via.placeholder.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/analytics/analytics.component.tsx"
+      ]
+    },
+    {
+      "host": "video.bsky.app",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/bluesky.provider.ts"
+      ]
+    },
+    {
+      "host": "vk.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/vk.provider.ts"
+      ]
+    },
+    {
+      "host": "wa.me",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/public/f.js"
+      ]
+    },
+    {
+      "host": "warpcast.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/farcaster.provider.ts"
+      ]
+    },
+    {
+      "host": "whop.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/whop.provider.ts"
+      ]
+    },
+    {
+      "host": "www.chatbase.co",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/layout/chatbase.component.tsx"
+      ]
+    },
+    {
+      "host": "www.facebook.com",
+      "class": "ALLOW",
+      "purpose": "Meta provider API or OAuth host",
+      "sources": [
+        "apps/frontend/public/f.js",
+        "libraries/nestjs-libraries/src/integrations/social/facebook.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/instagram.provider.ts"
+      ]
+    },
+    {
+      "host": "www.google.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/preview/comments.components.tsx",
+        "libraries/nestjs-libraries/src/database/prisma/posts/posts.service.ts"
+      ]
+    },
+    {
+      "host": "www.googleapis.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/backend/src/services/auth/providers/google.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/gmb.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/youtube.provider.ts"
+      ]
+    },
+    {
+      "host": "www.googletagmanager.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/scripts/fetch-gtm.mjs"
+      ]
+    },
+    {
+      "host": "www.instagram.com",
+      "class": "ALLOW",
+      "purpose": "Meta provider API or OAuth host",
+      "sources": [
+        "apps/frontend/public/f.js",
+        "libraries/nestjs-libraries/src/integrations/social/instagram.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/instagram.standalone.provider.ts"
+      ]
+    },
+    {
+      "host": "www.linkedin.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/launches/helpers/linkedin.component.tsx",
+        "libraries/nestjs-libraries/src/integrations/social/linkedin.page.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/linkedin.provider.ts"
+      ]
+    },
+    {
+      "host": "www.moltbook.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/moltbook.provider.ts"
+      ]
+    },
+    {
+      "host": "www.npmjs.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/public-api/public.component.tsx"
+      ]
+    },
+    {
+      "host": "www.pinterest.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/pinterest.provider.ts"
+      ]
+    },
+    {
+      "host": "www.reddit.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/reddit.provider.ts"
+      ]
+    },
+    {
+      "host": "www.rfc-editor.org",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/chat/oauth-middleware.ts",
+        "libraries/nestjs-libraries/src/chat/oauth-types.ts"
+      ]
+    },
+    {
+      "host": "www.skool.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/extension/src/providers/cookie-provider.interface.ts",
+        "apps/extension/src/providers/list/skool.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/skool.provider.ts"
+      ]
+    },
+    {
+      "host": "www.threads.net",
+      "class": "ALLOW",
+      "purpose": "Meta provider API or OAuth host",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/threads.provider.ts"
+      ]
+    },
+    {
+      "host": "www.tiktok.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/new-launch/providers/tiktok/tiktok.provider.tsx",
+        "libraries/nestjs-libraries/src/integrations/social/tiktok.business.provider.ts",
+        "libraries/nestjs-libraries/src/integrations/social/tiktok.provider.ts"
+      ]
+    },
+    {
+      "host": "www.tumblr.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "libraries/nestjs-libraries/src/integrations/social/tumblr.provider.ts"
+      ]
+    },
+    {
+      "host": "www.w3.org",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/app/(app)/(preview)/p/[id]/page.tsx",
+        "apps/frontend/src/components/admin/admin-errors.component.tsx",
+        "apps/frontend/src/components/agents/agent.tsx",
+        "apps/frontend/src/components/analytics/stars.and.forks.tsx",
+        "apps/frontend/src/components/analytics/stars.table.component.tsx",
+        "apps/frontend/src/components/auth/providers/apple.provider.tsx",
+        "apps/frontend/src/components/auth/providers/farcaster.provider.tsx",
+        "apps/frontend/src/components/auth/providers/github.provider.tsx",
+        "apps/frontend/src/components/auth/providers/google.provider.tsx",
+        "apps/frontend/src/components/auth/providers/placeholder/wallet.ui.provider.tsx",
+        "apps/frontend/src/components/billing/embedded.billing.tsx",
+        "apps/frontend/src/components/billing/faq.component.tsx",
+        "apps/frontend/src/components/billing/finish.trial.tsx",
+        "apps/frontend/src/components/billing/first.billing.component.tsx",
+        "apps/frontend/src/components/billing/lifetime.deal.tsx",
+        "apps/frontend/src/components/billing/main.billing.component.tsx",
+        "apps/frontend/src/components/launches/add.provider.component.tsx",
+        "apps/frontend/src/components/launches/ai.image.tsx",
+        "apps/frontend/src/components/launches/ai.video.tsx",
+        "apps/frontend/src/components/launches/bot.picture.tsx",
+        "apps/frontend/src/components/launches/calendar.tsx",
+        "apps/frontend/src/components/launches/comments/comment.component.tsx",
+        "apps/frontend/src/components/launches/filters.tsx",
+        "apps/frontend/src/components/launches/generator/generator.tsx",
+        "apps/frontend/src/components/launches/helpers/linkedin.component.tsx",
+        "apps/frontend/src/components/launches/helpers/media.settings.component.tsx",
+        "apps/frontend/src/components/launches/helpers/pick.platform.component.tsx",
+        "apps/frontend/src/components/launches/information.component.tsx",
+        "apps/frontend/src/components/launches/launches.component.tsx",
+        "apps/frontend/src/components/launches/menu/menu.tsx",
+        "apps/frontend/src/components/launches/new.post.tsx",
+        "apps/frontend/src/components/launches/web3/providers/telegram.provider.tsx",
+        "apps/frontend/src/components/layout/chrome.extension.component.tsx",
+        "apps/frontend/src/components/layout/impersonate.tsx",
+        "apps/frontend/src/components/layout/logout.component.tsx",
+        "apps/frontend/src/components/layout/mode.component.tsx",
+        "apps/frontend/src/components/layout/new-modal.tsx",
+        "apps/frontend/src/components/layout/organization.selector.tsx",
+        "apps/frontend/src/components/layout/settings.component.tsx",
+        "apps/frontend/src/components/layout/streak.component.tsx",
+        "apps/frontend/src/components/layout/support.tsx",
+        "apps/frontend/src/components/layout/top.menu.tsx",
+        "apps/frontend/src/components/media/media.component.tsx",
+        "apps/frontend/src/components/new-launch/a.component.tsx",
+        "apps/frontend/src/components/new-launch/add.post.button.tsx",
+        "apps/frontend/src/components/new-launch/bold.text.tsx",
+        "apps/frontend/src/components/new-launch/bullets.component.tsx",
+        "apps/frontend/src/components/new-launch/dummy.code.component.tsx",
+        "apps/frontend/src/components/new-launch/heading.component.tsx",
+        "apps/frontend/src/components/new-launch/modal.wrapper.component.tsx",
+        "apps/frontend/src/components/new-launch/providers/continue-provider/gmb/gmb.continue.tsx",
+        "apps/frontend/src/components/new-launch/providers/continue-provider/youtube/youtube.continue.tsx",
+        "apps/frontend/src/components/new-launch/providers/facebook/facebook.preview.tsx",
+        "apps/frontend/src/components/new-launch/providers/instagram/instagram.preview.tsx",
+        "apps/frontend/src/components/new-launch/providers/linkedin/linkedin.preview.tsx",
+        "apps/frontend/src/components/new-launch/providers/pinterest/pinterest.preview.tsx",
+        "apps/frontend/src/components/new-launch/providers/tiktok/tiktok.preview.tsx",
+        "apps/frontend/src/components/new-launch/providers/tiktok/tiktok.provider.tsx",
+        "apps/frontend/src/components/new-launch/providers/youtube/youtube.preview.tsx",
+        "apps/frontend/src/components/new-launch/u.text.tsx",
+        "apps/frontend/src/components/new-layout/billing.after.tsx",
+        "apps/frontend/src/components/new-layout/logo.tsx",
+        "apps/frontend/src/components/new-layout/sentry.feedback.component.tsx",
+        "apps/frontend/src/components/notifications/notification.component.tsx",
+        "apps/frontend/src/components/onboarding/onboarding.modal.tsx",
+        "apps/frontend/src/components/platform-analytics/platform.analytics.tsx",
+        "apps/frontend/src/components/plugs/plugs.tsx",
+        "apps/frontend/src/components/post-url-selector/post.url.selector.tsx",
+        "apps/frontend/src/components/preview/comments.components.tsx",
+        "apps/frontend/src/components/preview/post.content.client.tsx",
+        "apps/frontend/src/components/public-api/mcp.client.icons.tsx",
+        "apps/frontend/src/components/settings/signatures.component.tsx",
+        "apps/frontend/src/components/settings/teams.component.tsx",
+        "apps/frontend/src/components/signature.tsx",
+        "apps/frontend/src/components/third-parties/third-party.component.tsx",
+        "apps/frontend/src/components/third-parties/third-party.media-library.tsx",
+        "apps/frontend/src/components/third-parties/third-party.media.tsx",
+        "apps/frontend/src/components/ui/check.icon.component.tsx",
+        "apps/frontend/src/components/ui/icons/index.tsx",
+        "apps/frontend/src/components/ui/logo-text.component.tsx",
+        "libraries/react-shared-libraries/src/form/canonical.tsx",
+        "libraries/react-shared-libraries/src/form/checkbox.tsx",
+        "libraries/react-shared-libraries/src/form/custom.select.tsx",
+        "libraries/react-shared-libraries/src/form/total.tsx",
+        "libraries/react-shared-libraries/src/toaster/toaster.tsx"
+      ]
+    },
+    {
+      "host": "www.youtube.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/billing/first.billing.component.tsx",
+        "apps/frontend/src/components/onboarding/onboarding.modal.tsx",
+        "libraries/nestjs-libraries/src/integrations/social/youtube.provider.ts"
+      ]
+    },
+    {
+      "host": "x.ai",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/public-api/public.component.tsx"
+      ]
+    },
+    {
+      "host": "x.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/new-launch/providers/x/x.provider.tsx",
+        "libraries/nestjs-libraries/src/dtos/posts/providers-settings/x.dto.ts",
+        "libraries/nestjs-libraries/src/integrations/social/x.provider.ts"
+      ]
+    },
+    {
+      "host": "yourapp.com",
+      "class": "DENY",
+      "purpose": "Discovered in source; not on the Meta allowlist",
+      "sources": [
+        "apps/frontend/src/components/developer/developer.component.tsx"
+      ]
+    }
+  ]
+}

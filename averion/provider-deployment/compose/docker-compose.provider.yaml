@@ -1,0 +1,25 @@
+# Non-prod provider edge. Publish the public listener only.
+# Image is a digest. Do not replace it with :latest, :main, or a moving tag.
+services:
+  edge:
+    image: averion/postiz-provider@sha256:d599c500baac8929c801daee926f5a8a3d9bcaaee3867dd20b30eb44cafebcb6
+    read_only: false
+    environment:
+      AVERION_PROVIDER_PROFILE: "true"
+      TOKEN_ENCRYPTION_REQUIRED: "true"
+      MCP_WRITE_DISABLED: "true"
+      PUBLIC_API_WRITE_DISABLED: "true"
+      ORG_API_KEY_BROWSER_EXPOSURE: "false"
+      AUTOPOST_ENABLED: "false"
+      DISABLE_REGISTRATION: "true"
+    env_file:
+      - ../secrets/injected.env
+    ports:
+      - "5000:5000"
+    networks:
+      - provider
+    restart: "no"
+
+networks:
+  provider:
+    internal: false

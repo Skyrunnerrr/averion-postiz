@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postiz-provider-edge
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      averion.io/role: edge
+  template:
+    metadata:
+      labels:
+        averion.io/role: edge
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: edge
+          image: {{ .Values.image.repository }}@sha256:{{ required "image.digest is required and must not be a tag" .Values.image.digest }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: public
+              containerPort: {{ .Values.service.port }}
+            - name: ops
+              containerPort: 15021
+          env:
+            - name: TOKEN_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: TOKEN_ENCRYPTION_KEY
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: JWT_SECRET
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: DATABASE_URL
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: REDIS_URL
+            - name: FACEBOOK_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: FACEBOOK_APP_SECRET
+            - name: INSTAGRAM_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: INSTAGRAM_APP_SECRET
+            - name: THREADS_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: THREADS_APP_SECRET
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: ops

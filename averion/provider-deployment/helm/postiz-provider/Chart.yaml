@@ -1,0 +1,6 @@
+apiVersion: v2
+name: postiz-provider
+description: Averion non-prod Postiz provider edge. Public listener is default-deny except Meta OAuth callbacks.
+type: application
+version: 0.1.0
+appVersion: c3f00d015c591d7927e338f4641c1b1b379c733d
