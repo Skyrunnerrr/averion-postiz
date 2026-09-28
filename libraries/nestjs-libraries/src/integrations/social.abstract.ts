@@ -14,6 +14,7 @@ import {
 import sharp from 'sharp';
 import { createReadStream, statSync } from 'fs';
 import { Readable } from 'stream';
+import { scrubProviderSecrets } from '@gitroom/helpers/auth/provider.credential';
 
 export const stripQuery = (url: string) => {
   try {
@@ -42,7 +43,9 @@ export function truncateForTemporal(value: any, max: number): string {
     return '';
   }
 
-  const str = typeof value === 'string' ? value : safeStringify(value);
+  const str = scrubProviderSecrets(
+    typeof value === 'string' ? value : safeStringify(value)
+  );
   if (str.length <= max) {
     return str;
   }

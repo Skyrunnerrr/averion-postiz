@@ -9,6 +9,11 @@ import {
   Query,
 } from '@nestjs/common';
 import { ioRedis } from '@gitroom/nestjs-libraries/redis/redis.service';
+import {
+  openIntegrationForProviderCall,
+  scrubProviderSecrets,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
 import { IntegrationManager } from '@gitroom/nestjs-libraries/integrations/integration.manager';
 import { IntegrationService } from '@gitroom/nestjs-libraries/database/prisma/integrations/integration.service';
 import { GetOrgFromRequest } from '@gitroom/nestjs-libraries/user/org.from.request';
@@ -159,19 +164,20 @@ export class IntegrationsController {
       throw new Error('Invalid integration');
     }
 
+    const ready = openIntegrationForProviderCall(integration);
     const { url } = manager.changeProfilePicture
-      ? await manager.changeProfilePicture(
-          integration.internalId,
-          integration.token,
-          body.picture
+      ? await withProviderSecrets([ready.token, ready.refreshToken], () =>
+          manager.changeProfilePicture!(
+            ready.internalId,
+            ready.token,
+            body.picture
+          )
         )
       : { url: '' };
 
     const { name } = manager.changeNickname
-      ? await manager.changeNickname(
-          integration.internalId,
-          integration.token,
-          body.name
+      ? await withProviderSecrets([ready.token, ready.refreshToken], () =>
+          manager.changeNickname!(ready.internalId, ready.token, body.name)
         )
       : { name: '' };
 
@@ -290,7 +296,7 @@ export class IntegrationsController {
     try {
       newList = (await this.functionIntegration(org, body)) || [];
     } catch (err) {
-      console.log(err);
+      console.log(scrubProviderSecrets(err instanceof Error ? err.message : ''));
     }
 
     if (!Array.isArray(newList) && newList?.none) {
@@ -352,12 +358,16 @@ export class IntegrationsController {
     // @ts-ignore
     if (integrationProvider[body.name]) {
       try {
-        // @ts-ignore
-        const load = await integrationProvider[body.name](
-          getIntegration.token,
-          body.data,
-          getIntegration.internalId,
-          getIntegration
+        const ready = openIntegrationForProviderCall(getIntegration);
+        const load = await withProviderSecrets(
+          [ready.token, ready.refreshToken],
+          () =>
+            (integrationProvider as any)[body.name](
+              ready.token,
+              body.data,
+              ready.internalId,
+              ready
+            )
         );
 
         return load;

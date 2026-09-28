@@ -1,4 +1,5 @@
 import { Context } from '@temporalio/activity';
+import { scrubProviderSecrets } from '@gitroom/helpers/auth/provider.credential';
 
 // Heartbeats are throttled by the SDK (min of ~80% of the workflow's
 // heartbeatTimeout and the worker's maxHeartbeatThrottleInterval, set to 15s
@@ -36,7 +37,7 @@ const readDetails = (ctx: any) => ctx[DETAILS];
 export const setHeartbeatDetails = (details: string) => {
   try {
     const ctx = Context.current() as any;
-    ctx[DETAILS] = details;
+    ctx[DETAILS] = scrubProviderSecrets(details);
   } catch (err) {
     /**empty - not inside an activity**/
   }

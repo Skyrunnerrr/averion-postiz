@@ -7,6 +7,19 @@ import {
   SocialProvider,
 } from '@gitroom/nestjs-libraries/integrations/social/social.integrations.interface';
 import { TemporalService } from 'nestjs-temporal-core';
+import {
+  openIntegrationForProviderCall,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
+
+export type RefreshCallOptions = {
+  /**
+   * Upstream default is true: a falsy refresh or a missing access token
+   * disconnects the channel. getMissingContent and checkPostAnalytics pass
+   * false so those paths return false and leave the channel connected.
+   */
+  disconnectOnFailure?: boolean;
+};
 
 @Injectable()
 export class RefreshIntegrationService {
@@ -16,12 +29,21 @@ export class RefreshIntegrationService {
     private _integrationService: IntegrationService,
     private _temporalService: TemporalService
   ) {}
-  async refresh(integration: Integration, cause = ''): Promise<false | AuthTokenDetails> {
+  async refresh(
+    integration: Integration,
+    cause = '',
+    options: RefreshCallOptions = {}
+  ): Promise<false | AuthTokenDetails> {
     const socialProvider = this._integrationManager.getSocialIntegration(
       integration.providerIdentifier
     );
 
-    const refresh = await this.refreshProcess(integration, socialProvider, cause);
+    const refresh = await this.refreshProcess(
+      integration,
+      socialProvider,
+      cause,
+      options.disconnectOnFailure !== false
+    );
 
     if (!refresh) {
       return false as const;
@@ -71,28 +93,33 @@ export class RefreshIntegrationService {
   private async refreshProcess(
     integration: Integration,
     socialProvider: SocialProvider,
-    cause = ''
+    cause = '',
+    disconnectOnFailure = true
   ): Promise<AuthTokenDetails | false> {
-    const refresh: false | AuthTokenDetails = await socialProvider
-      .refreshToken(integration.refreshToken)
-      .catch((err) => false);
+    const opened = openIntegrationForProviderCall(integration);
+    const refresh: false | AuthTokenDetails = await withProviderSecrets(
+      [opened.token, opened.refreshToken],
+      () => socialProvider.refreshToken(opened.refreshToken).catch(() => false)
+    );
 
     if (!refresh || !refresh.accessToken) {
-      await this._integrationService.refreshNeeded(
-        integration.organizationId,
-        integration.id
-      );
+      if (disconnectOnFailure) {
+        await this._integrationService.refreshNeeded(
+          integration.organizationId,
+          integration.id
+        );
 
-      await this._integrationService.informAboutRefreshError(
-        integration.organizationId,
-        integration,
-        cause
-      );
+        await this._integrationService.informAboutRefreshError(
+          integration.organizationId,
+          integration,
+          cause
+        );
 
-      await this._integrationService.disconnectChannel(
-        integration.organizationId,
-        integration
-      );
+        await this._integrationService.disconnectChannel(
+          integration.organizationId,
+          integration
+        );
+      }
 
       return false;
     }
@@ -104,10 +131,14 @@ export class RefreshIntegrationService {
       return refresh;
     }
 
-    const reConnect = await socialProvider.reConnect(
-      integration.rootInternalId,
-      integration.internalId,
-      refresh.accessToken
+    const reConnect = await withProviderSecrets(
+      [refresh.accessToken, refresh.refreshToken],
+      () =>
+        socialProvider.reConnect(
+          integration.rootInternalId,
+          integration.internalId,
+          refresh.accessToken
+        )
     );
 
     return {

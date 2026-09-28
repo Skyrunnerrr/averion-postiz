@@ -9,6 +9,7 @@
  */
 
 import type * as http from 'node:http';
+import { mcpScopes } from '@gitroom/helpers/auth/deployment.gates';
 
 /**
  * Configuration for OAuth-protected MCP server.
@@ -83,7 +84,7 @@ export function generateProtectedResourceMetadata(config: MCPServerOAuthConfig):
   return {
     resource: config.resource,
     authorization_servers: config.authorizationServers,
-    scopes_supported: config.scopesSupported ?? ['mcp:read', 'mcp:write'],
+    scopes_supported: config.scopesSupported ?? mcpScopes(['mcp:read', 'mcp:write']),
     bearer_methods_supported: ['header'],
     ...(config.resourceName && { resource_name: config.resourceName }),
     ...(config.resourceDocumentation && {

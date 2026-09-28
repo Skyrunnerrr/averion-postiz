@@ -45,7 +45,15 @@ import {
 } from '@gitroom/nestjs-libraries/temporal/temporal.search.attribute';
 import { AnalyticsData } from '@gitroom/nestjs-libraries/integrations/social/social.integrations.interface';
 import { timer } from '@gitroom/helpers/utils/timer';
+import { refreshChannelOutcome } from '@gitroom/helpers/utils/refresh.channel.outcome';
 import { ioRedis } from '@gitroom/nestjs-libraries/redis/redis.service';
+import {
+  assertRedisPayloadHasNoCredential,
+  openCredential,
+  redactIntegrationRecord,
+  scrubProviderSecrets,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
 import { RefreshToken } from '@gitroom/nestjs-libraries/integrations/social.abstract';
 import { RefreshIntegrationService } from '@gitroom/nestjs-libraries/integrations/refresh.integration.service';
 import { hasExtension } from '@gitroom/helpers/utils/has.extension';
@@ -103,39 +111,38 @@ export class PostsService {
     }
 
     const getIntegration = post.integration!;
+    let accessToken = openCredential(getIntegration.token, 'token');
 
     if (
       dayjs(getIntegration?.tokenExpiration).isBefore(dayjs()) ||
       forceRefresh
     ) {
       const data = await this._refreshIntegrationService.refresh(
-        getIntegration
+        getIntegration,
+        '',
+        { disconnectOnFailure: false }
       );
-      if (!data) {
+      const outcome = refreshChannelOutcome(data);
+      if (outcome.kind === 'empty') {
+        return [];
+      }
+      if (outcome.kind === 'disconnect') {
+        await this._integrationService.disconnectChannel(orgId, getIntegration);
         return [];
       }
 
-      const { accessToken } = data;
-
-      if (accessToken) {
-        getIntegration.token = accessToken;
-
-        if (integrationProvider.refreshWait) {
-          await timer(10000);
-        }
-      } else {
-        await this._integrationService.disconnectChannel(orgId, getIntegration);
-        return [];
+      accessToken = outcome.accessToken;
+      if (integrationProvider.refreshWait) {
+        await timer(10000);
       }
     }
 
     try {
-      return await integrationProvider.missing(
-        getIntegration.internalId,
-        getIntegration.token
+      return await withProviderSecrets([accessToken], () =>
+        integrationProvider.missing(getIntegration.internalId, accessToken)
       );
     } catch (e) {
-      console.log(e);
+      console.log(scrubProviderSecrets(e instanceof Error ? e.message : ''));
       if (e instanceof RefreshToken) {
         return this.getMissingContent(orgId, postId, true);
       }
@@ -180,29 +187,29 @@ export class PostsService {
     }
 
     const getIntegration = post.integration!;
+    let accessToken = openCredential(getIntegration.token, 'token');
 
     if (
       dayjs(getIntegration?.tokenExpiration).isBefore(dayjs()) ||
       forceRefresh
     ) {
       const data = await this._refreshIntegrationService.refresh(
-        getIntegration
+        getIntegration,
+        '',
+        { disconnectOnFailure: false }
       );
-      if (!data) {
+      const outcome = refreshChannelOutcome(data);
+      if (outcome.kind === 'empty') {
+        return [];
+      }
+      if (outcome.kind === 'disconnect') {
+        await this._integrationService.disconnectChannel(orgId, getIntegration);
         return [];
       }
 
-      const { accessToken } = data;
-
-      if (accessToken) {
-        getIntegration.token = accessToken;
-
-        if (integrationProvider.refreshWait) {
-          await timer(10000);
-        }
-      } else {
-        await this._integrationService.disconnectChannel(orgId, getIntegration);
-        return [];
+      accessToken = outcome.accessToken;
+      if (integrationProvider.refreshWait) {
+        await timer(10000);
       }
     }
 
@@ -214,15 +221,19 @@ export class PostsService {
     // }
 
     try {
-      const loadAnalytics = await integrationProvider.postAnalytics(
-        getIntegration.internalId,
-        getIntegration.token,
-        post.releaseId,
-        date
+      const loadAnalytics = await withProviderSecrets([accessToken], () =>
+        integrationProvider.postAnalytics(
+          getIntegration.internalId,
+          accessToken,
+          post.releaseId,
+          date
+        )
       );
+      const cachePayload = JSON.stringify(loadAnalytics);
+      assertRedisPayloadHasNoCredential(cachePayload);
       await ioRedis.set(
         `integration:${orgId}:${post.id}:${date}`,
-        JSON.stringify(loadAnalytics),
+        cachePayload,
         'EX',
         !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
           ? 1
@@ -230,7 +241,7 @@ export class PostsService {
       );
       return loadAnalytics;
     } catch (e) {
-      console.log(e);
+      console.log(scrubProviderSecrets(e instanceof Error ? e.message : ''));
       if (e instanceof RefreshToken) {
         return this.checkPostAnalytics(orgId, postId, date, true);
       }
@@ -519,6 +530,11 @@ export class PostsService {
       posts: await Promise.all(
         (posts || []).map(async (post) => ({
           ...post,
+          integration: (post as { integration?: Record<string, any> }).integration
+            ? redactIntegrationRecord(
+                (post as { integration: Record<string, any> }).integration
+              )
+            : undefined,
           image: await this.updateMedia(
             post.id,
             JSON.parse(post.image || '[]'),

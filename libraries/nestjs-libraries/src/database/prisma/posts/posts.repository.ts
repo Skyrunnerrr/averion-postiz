@@ -16,6 +16,12 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import utc from 'dayjs/plugin/utc';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateTagDto } from '@gitroom/nestjs-libraries/dtos/posts/create.tag.dto';
+import { scrubProviderSecrets } from '@gitroom/helpers/auth/provider.credential';
+
+function persistedError(value: any): string {
+  const raw = typeof value === 'string' ? value : JSON.stringify(value);
+  return scrubProviderSecrets(raw || '');
+}
 
 dayjs.extend(isoWeek);
 dayjs.extend(weekOfYear);
@@ -437,9 +443,7 @@ export class PostsRepository {
       },
       data: {
         state,
-        ...(err
-          ? { error: typeof err === 'string' ? err : JSON.stringify(err) }
-          : {}),
+        ...(err ? { error: persistedError(err) } : {}),
       },
       include: {
         integration: {
@@ -454,11 +458,11 @@ export class PostsRepository {
       try {
         await this._errors.model.errors.create({
           data: {
-            message: typeof err === 'string' ? err : JSON.stringify(err),
+            message: persistedError(err),
             organizationId: update.organizationId,
             platform: update.integration.providerIdentifier,
             postId: update.id,
-            body: typeof body === 'string' ? body : JSON.stringify(body),
+            body: persistedError(body),
           },
         });
       } catch (err) {}

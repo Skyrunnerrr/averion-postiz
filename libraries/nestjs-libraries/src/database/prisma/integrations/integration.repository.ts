@@ -7,6 +7,7 @@ import { makeId } from '@gitroom/nestjs-libraries/services/make.is';
 import { IntegrationTimeDto } from '@gitroom/nestjs-libraries/dtos/integrations/integration.time.dto';
 import { UploadFactory } from '@gitroom/nestjs-libraries/upload/upload.factory';
 import { PlugDto } from '@gitroom/nestjs-libraries/dtos/plugs/plug.dto';
+import { sealCredential } from '@gitroom/helpers/auth/provider.credential';
 
 @Injectable()
 export class IntegrationRepository {
@@ -193,6 +194,12 @@ export class IntegrationRepository {
       },
       data: {
         ...params,
+        ...(typeof params.token === 'string'
+          ? { token: sealCredential(params.token, 'token') }
+          : {}),
+        ...(typeof params.refreshToken === 'string'
+          ? { refreshToken: sealCredential(params.refreshToken, 'refreshToken') }
+          : {}),
         disabled: false,
         deletedAt: null,
       },
@@ -296,6 +303,10 @@ export class IntegrationRepository {
     timezone?: number,
     customInstanceDetails?: string
   ) {
+    const sealedToken = sealCredential(token, 'token');
+    const sealedRefresh = refreshToken
+      ? sealCredential(refreshToken, 'refreshToken')
+      : refreshToken;
     const postTimes = timezone
       ? {
           postingTimes: JSON.stringify([
@@ -316,11 +327,11 @@ export class IntegrationRepository {
         type: type as any,
         name,
         providerIdentifier: provider,
-        token,
+        token: sealedToken,
         profile: username,
         ...(picture ? { picture } : {}),
         inBetweenSteps: isBetweenSteps,
-        refreshToken,
+        refreshToken: sealedRefresh,
         ...(expiresIn
           ? { tokenExpiration: new Date(Date.now() + expiresIn * 1000) }
           : {}),
@@ -348,8 +359,8 @@ export class IntegrationRepository {
         ...(picture ? { picture } : {}),
         profile: username,
         providerIdentifier: provider,
-        token,
-        refreshToken,
+        token: sealedToken,
+        refreshToken: sealedRefresh,
         ...(expiresIn
           ? { tokenExpiration: new Date(Date.now() + expiresIn * 1000) }
           : {}),
@@ -379,8 +390,8 @@ export class IntegrationRepository {
           rootInternalId: rootId,
         },
         data: {
-          token,
-          refreshToken,
+          token: sealedToken,
+          refreshToken: sealedRefresh,
           refreshNeeded: false,
           ...(expiresIn
             ? { tokenExpiration: new Date(Date.now() + expiresIn * 1000) }

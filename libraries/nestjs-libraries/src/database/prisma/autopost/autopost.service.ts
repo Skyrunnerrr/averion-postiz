@@ -15,6 +15,7 @@ import Parser from 'rss-parser';
 import { IntegrationService } from '@gitroom/nestjs-libraries/database/prisma/integrations/integration.service';
 import { makeId } from '@gitroom/nestjs-libraries/services/make.is';
 import { TemporalService } from 'nestjs-temporal-core';
+import { directAiAutonomyEnabled } from '@gitroom/helpers/auth/deployment.gates';
 import { TypedSearchAttributes } from '@temporalio/common';
 import {
   organizationId,
@@ -101,6 +102,10 @@ export class AutopostService {
   }
 
   async processCron(active: boolean, orgId: string, id: string) {
+    if (active && !directAiAutonomyEnabled()) {
+      return false;
+    }
+
     if (active) {
       try {
         return this._temporalService.client
@@ -311,6 +316,10 @@ export class AutopostService {
   }
 
   async startAutopost(id: string) {
+    if (!directAiAutonomyEnabled()) {
+      return;
+    }
+
     const getPost = await this._autopostsRepository.getAutopost(id);
     if (!getPost || !getPost.active) {
       return;

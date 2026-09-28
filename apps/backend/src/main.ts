@@ -19,8 +19,18 @@ import { PostValidationExceptionFilter } from '@gitroom/backend/api/routes/posts
 import { HttpExceptionFilter } from '@gitroom/nestjs-libraries/services/exception.filter';
 import { ConfigurationChecker } from '@gitroom/helpers/configuration/configuration.checker';
 import { startMcp } from '@gitroom/nestjs-libraries/chat/start.mcp';
+import { assertTokenEncryptionConfigured } from '@gitroom/helpers/auth/provider.credential';
 
 async function start() {
+  try {
+    assertTokenEncryptionConfigured();
+  } catch (e) {
+    console.error(
+      e instanceof Error ? e.message : 'Token encryption configuration failed'
+    );
+    process.exit(1);
+  }
+
   const app = await NestFactory.create(AppModule, {
     rawBody: true,
     cors: {

@@ -32,6 +32,13 @@ import {
   BadBody,
   Disconnect,
 } from '@gitroom/nestjs-libraries/integrations/social.abstract';
+import {
+  openIntegrationForProviderCall,
+  redactAuthDetailsForWorkflow,
+  redactIntegrationRecord,
+  redactPostForWorkflow,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
 
 // Drops fields the workflow and downstream activities never read — biggest wins are `error` (grows per retry) and `childrenPost` (Prisma side-loads it on every recursive row).
 function slimPost(post: any) {
@@ -108,7 +115,22 @@ export class PostActivity {
 
   @ActivityMethod()
   async getIntegrationById(orgId: string, id: string) {
-    return this._integrationService.getIntegrationById(orgId, id);
+    const integration = await this._integrationService.getIntegrationById(
+      orgId,
+      id
+    );
+    return integration ? redactIntegrationRecord(integration) : integration;
+  }
+
+  private async resolveProviderIntegration(integration: Integration) {
+    const stored = await this._integrationService.getIntegrationById(
+      integration.organizationId,
+      integration.id
+    );
+    if (!stored) {
+      throw new Error('Integration not found');
+    }
+    return openIntegrationForProviderCall(stored);
   }
 
   @ActivityMethod()
@@ -166,7 +188,7 @@ export class PostActivity {
       return false;
     }
 
-    return reanchorInterval(post);
+    return redactPostForWorkflow(reanchorInterval(post));
   }
 
   @ActivityMethod()
@@ -191,7 +213,9 @@ export class PostActivity {
 
     // only the root drives the pre-publish sleep and the repeat schedule,
     // the rest are comments
-    const [root, ...comments] = getPosts.map(slimPost);
+    const [root, ...comments] = getPosts.map((post) =>
+      redactPostForWorkflow(slimPost(post))
+    );
     return [reanchorInterval(root), ...comments];
   }
 
@@ -217,40 +241,45 @@ export class PostActivity {
     // dropped once all V108 executions have drained
     return withHeartbeat(() =>
       this.handleDisconnect(integration, async () => {
+        const ready = await this.resolveProviderIntegration(integration);
         const getIntegration = this._integrationManager.getSocialIntegration(
-          integration.providerIdentifier
+          ready.providerIdentifier
         );
 
         const newPosts = await this._postService.updateTags(
-          integration.organizationId,
+          ready.organizationId,
           posts
         );
 
-        return getIntegration.comment(
-          integration.internalId,
-          postId,
-          lastPostId,
-          integration.token,
-          await Promise.all(
-            (newPosts || []).map(async (p) => ({
-              id: p.id,
-              message: stripHtmlValidation(
-                getIntegration.editor,
-                p.content,
-                true,
-                false,
-                !/<\/?[a-z][\s\S]*>/i.test(p.content),
-                getIntegration.mentionFormat
-              ),
-              settings: JSON.parse(p.settings || '{}'),
-              media: await this._postService.updateMedia(
-                p.id,
-                JSON.parse(p.image || '[]'),
-                getIntegration?.convertToJPEG || false
-              ),
-            }))
-          ),
-          integration
+        const comments = await Promise.all(
+          (newPosts || []).map(async (p) => ({
+            id: p.id,
+            message: stripHtmlValidation(
+              getIntegration.editor,
+              p.content,
+              true,
+              false,
+              !/<\/?[a-z][\s\S]*>/i.test(p.content),
+              getIntegration.mentionFormat
+            ),
+            settings: JSON.parse(p.settings || '{}'),
+            media: await this._postService.updateMedia(
+              p.id,
+              JSON.parse(p.image || '[]'),
+              getIntegration?.convertToJPEG || false
+            ),
+          }))
+        );
+
+        return withProviderSecrets([ready.token, ready.refreshToken], () =>
+          getIntegration.comment(
+            ready.internalId,
+            postId,
+            lastPostId,
+            ready.token,
+            comments,
+            ready
+          )
         );
       })
     );
@@ -373,20 +402,24 @@ export class PostActivity {
     );
 
     setHeartbeatDetails(`${integration.providerIdentifier}: publish`);
-    const postNow =
-      allowPending && getIntegration.postPending
-        ? await getIntegration.postPending(
-            integration.internalId,
-            integration.token,
-            mappedPosts,
-            integration
-          )
-        : await getIntegration.post(
-            integration.internalId,
-            integration.token,
-            mappedPosts,
-            integration
-          );
+    const ready = await this.resolveProviderIntegration(integration);
+    const postNow = await withProviderSecrets(
+      [ready.token, ready.refreshToken],
+      () =>
+        allowPending && getIntegration.postPending
+          ? getIntegration.postPending(
+              ready.internalId,
+              ready.token,
+              mappedPosts,
+              ready
+            )
+          : getIntegration.post(
+              ready.internalId,
+              ready.token,
+              mappedPosts,
+              ready
+            )
+    );
 
     // The post is already published at this point: the streak is best-effort,
     // failing the activity here would retry it and publish again.
@@ -419,9 +452,12 @@ export class PostActivity {
       integration.providerIdentifier
     );
 
-    return this.handleDisconnect(integration, () =>
-      getIntegration.checkPostStatus(integration.token, pendingData, integration)
-    );
+    return this.handleDisconnect(integration, async () => {
+      const ready = await this.resolveProviderIntegration(integration);
+      return withProviderSecrets([ready.token, ready.refreshToken], () =>
+        getIntegration.checkPostStatus(ready.token, pendingData, ready)
+      );
+    });
   }
 
   @ActivityMethod()
@@ -431,9 +467,12 @@ export class PostActivity {
     );
 
     return withHeartbeat(() =>
-      this.handleDisconnect(integration, () =>
-        getIntegration.finalizePost(integration.token, pendingData, integration)
-      )
+      this.handleDisconnect(integration, async () => {
+        const ready = await this.resolveProviderIntegration(integration);
+        return withProviderSecrets([ready.token, ready.refreshToken], () =>
+          getIntegration.finalizePost(ready.token, pendingData, ready)
+        );
+      })
     );
   }
 
@@ -559,9 +598,12 @@ export class PostActivity {
     );
 
     try {
-      const refresh = await this._refreshIntegrationService.refresh(
-        integration
-      );
+      const stored =
+        (await this._integrationService.getIntegrationById(
+          integration.organizationId,
+          integration.id
+        )) || integration;
+      const refresh = await this._refreshIntegrationService.refresh(stored);
       if (!refresh) {
         return false;
       }
@@ -570,7 +612,7 @@ export class PostActivity {
         await timer(10000);
       }
 
-      return refresh;
+      return redactAuthDetailsForWorkflow(refresh);
     } catch (err) {
       await this._refreshIntegrationService.setBetweenSteps(integration);
       return false;
@@ -587,8 +629,13 @@ export class PostActivity {
     );
 
     try {
+      const stored =
+        (await this._integrationService.getIntegrationById(
+          integration.organizationId,
+          integration.id
+        )) || integration;
       const refresh = await this._refreshIntegrationService.refresh(
-        integration,
+        stored,
         cause
       );
       if (!refresh) {
@@ -599,7 +646,7 @@ export class PostActivity {
         await timer(10000);
       }
 
-      return refresh;
+      return redactAuthDetailsForWorkflow(refresh);
     } catch (err) {
       await this._refreshIntegrationService.setBetweenSteps(integration, cause);
       return false;

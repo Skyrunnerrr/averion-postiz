@@ -17,6 +17,13 @@ import dayjs from 'dayjs';
 import { timer } from '@gitroom/helpers/utils/timer';
 import { ioRedis } from '@gitroom/nestjs-libraries/redis/redis.service';
 import {
+  assertRedisPayloadHasNoCredential,
+  openCredential,
+  openIntegrationForProviderCall,
+  scrubProviderSecrets,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
+import {
   NotEnoughScopes,
   RefreshToken,
 } from '@gitroom/nestjs-libraries/integrations/social.abstract';
@@ -177,8 +184,11 @@ export class IntegrationService {
 
   async refreshToken(provider: SocialProvider, refresh: string) {
     try {
-      const { refreshToken, accessToken, expiresIn } =
-        await provider.refreshToken(refresh);
+      const opened = openCredential(refresh || '', 'refreshToken');
+      const { refreshToken, accessToken, expiresIn } = await withProviderSecrets(
+        [opened],
+        () => provider.refreshToken(opened)
+      );
 
       if (!refreshToken || !accessToken || !expiresIn) {
         return false;
@@ -309,8 +319,10 @@ export class IntegrationService {
   ) {
     await this._notificationService.inAppNotification(
       orgId,
-      `Could not refresh your ${integration.providerIdentifier} channel ${err}`,
-      `Could not refresh your ${integration.providerIdentifier} channel ${err}. Please go back to the system and connect it again ${process.env.FRONTEND_URL}/launches`,
+      `Could not refresh your ${integration.providerIdentifier} channel`,
+      `Could not refresh your ${integration.providerIdentifier} channel. ${scrubProviderSecrets(
+        err
+      )}. Please go back to the system and connect it again ${process.env.FRONTEND_URL}/launches`,
       true,
       false,
       'info'
@@ -421,9 +433,10 @@ export class IntegrationService {
       );
     }
 
-    const getIntegrationInformation = await provider.fetchPageInformation(
-      getIntegration.token,
-      data
+    const opened = openIntegrationForProviderCall(getIntegration);
+    const getIntegrationInformation = await withProviderSecrets(
+      [opened.token, opened.refreshToken],
+      () => provider.fetchPageInformation!(opened.token, data)
     );
 
     await this.checkForDeletedOnceAndUpdate(
@@ -463,6 +476,8 @@ export class IntegrationService {
       getIntegration.providerIdentifier
     );
 
+    let accessToken = openCredential(getIntegration.token, 'token');
+
     if (
       dayjs(getIntegration?.tokenExpiration).isBefore(dayjs()) ||
       forceRefresh
@@ -474,10 +489,8 @@ export class IntegrationService {
         return [];
       }
 
-      const { accessToken } = data;
-
-      if (accessToken) {
-        getIntegration.token = accessToken;
+      if (data.accessToken) {
+        accessToken = data.accessToken;
 
         if (integrationProvider.refreshWait) {
           await timer(10000);
@@ -497,14 +510,18 @@ export class IntegrationService {
 
     if (integrationProvider.analytics) {
       try {
-        const loadAnalytics = await integrationProvider.analytics(
-          getIntegration.internalId,
-          getIntegration.token,
-          +date
+        const loadAnalytics = await withProviderSecrets([accessToken], () =>
+          integrationProvider.analytics(
+            getIntegration.internalId,
+            accessToken,
+            +date
+          )
         );
+        const cachePayload = JSON.stringify(loadAnalytics);
+        assertRedisPayloadHasNoCredential(cachePayload);
         await ioRedis.set(
           `integration:${org.id}:${integration}:${date}`,
-          JSON.stringify(loadAnalytics),
+          cachePayload,
           'EX',
           !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             ? 1
@@ -571,12 +588,17 @@ export class IntegrationService {
       getIntegration.providerIdentifier
     );
 
-    // @ts-ignore
-    await getSocialIntegration?.[getAllInternalPlugs.methodName]?.(
-      getIntegration,
-      originalIntegration,
-      data.post,
-      data.information
+    const ready = openIntegrationForProviderCall(getIntegration);
+    const original = openIntegrationForProviderCall(originalIntegration);
+    await withProviderSecrets(
+      [ready.token, ready.refreshToken, original.token, original.refreshToken],
+      () =>
+        (getSocialIntegration as any)?.[getAllInternalPlugs.methodName]?.(
+          ready,
+          original,
+          data.post,
+          data.information
+        )
     );
 
     return;
