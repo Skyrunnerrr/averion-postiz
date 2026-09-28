@@ -45,6 +45,7 @@ import {
 } from '@gitroom/nestjs-libraries/temporal/temporal.search.attribute';
 import { AnalyticsData } from '@gitroom/nestjs-libraries/integrations/social/social.integrations.interface';
 import { timer } from '@gitroom/helpers/utils/timer';
+import { refreshChannelOutcome } from '@gitroom/helpers/utils/refresh.channel.outcome';
 import { ioRedis } from '@gitroom/nestjs-libraries/redis/redis.service';
 import {
   assertRedisPayloadHasNoCredential,
@@ -119,12 +120,16 @@ export class PostsService {
       const data = await this._refreshIntegrationService.refresh(
         getIntegration
       );
-      if (data === false || !data.accessToken) {
+      const outcome = refreshChannelOutcome(data);
+      if (outcome.kind === 'empty') {
+        return [];
+      }
+      if (outcome.kind === 'disconnect') {
         await this._integrationService.disconnectChannel(orgId, getIntegration);
         return [];
       }
 
-      accessToken = data.accessToken;
+      accessToken = outcome.accessToken;
       if (integrationProvider.refreshWait) {
         await timer(10000);
       }
@@ -189,12 +194,16 @@ export class PostsService {
       const data = await this._refreshIntegrationService.refresh(
         getIntegration
       );
-      if (data === false || !data.accessToken) {
+      const outcome = refreshChannelOutcome(data);
+      if (outcome.kind === 'empty') {
+        return [];
+      }
+      if (outcome.kind === 'disconnect') {
         await this._integrationService.disconnectChannel(orgId, getIntegration);
         return [];
       }
 
-      accessToken = data.accessToken;
+      accessToken = outcome.accessToken;
       if (integrationProvider.refreshWait) {
         await timer(10000);
       }

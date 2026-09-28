@@ -14,6 +14,8 @@ describe('AVERION deployment write gates', () => {
     ORG_API_KEY_BROWSER_EXPOSURE: process.env.ORG_API_KEY_BROWSER_EXPOSURE,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     AUTOPOST_ENABLED: process.env.AUTOPOST_ENABLED,
+    TOKEN_ENCRYPTION_REQUIRED: process.env.TOKEN_ENCRYPTION_REQUIRED,
+    AVERION_PROVIDER_PROFILE: process.env.AVERION_PROVIDER_PROFILE,
   };
 
   afterEach(() => {
@@ -56,21 +58,40 @@ describe('AVERION deployment write gates', () => {
     expect(publicApiWriteDecision('GET', false)).toBe('ok');
   });
 
-  it('hides the org API key and keeps direct AI autonomy off by default', () => {
+  it('hides the org API key when browser exposure is turned off', () => {
     process.env.ORG_API_KEY_BROWSER_EXPOSURE = 'false';
-    delete process.env.OPENAI_API_KEY;
-    delete process.env.AUTOPOST_ENABLED;
-
     expect(exposeOrgApiKeyToUsers()).toBe(false);
-    expect(directAiAutonomyEnabled()).toBe(false);
+  });
 
-    process.env.OPENAI_API_KEY = 'sk-proj-';
-    expect(directAiAutonomyEnabled()).toBe(false);
+  it('lets a real OpenAI key drive autopost when no AVERION profile is set', () => {
+    delete process.env.TOKEN_ENCRYPTION_REQUIRED;
+    delete process.env.AVERION_PROVIDER_PROFILE;
+    delete process.env.AUTOPOST_ENABLED;
+    delete process.env.OPENAI_API_KEY;
 
+    expect(directAiAutonomyEnabled()).toBe(true);
+
+    process.env.OPENAI_API_KEY = 'sk-real';
+    expect(directAiAutonomyEnabled()).toBe(true);
+  });
+
+  it('requires AUTOPOST_ENABLED and a real key only on an AVERION host', () => {
+    delete process.env.AUTOPOST_ENABLED;
+    process.env.TOKEN_ENCRYPTION_REQUIRED = 'true';
     process.env.OPENAI_API_KEY = 'sk-real';
     expect(directAiAutonomyEnabled()).toBe(false);
 
+    process.env.OPENAI_API_KEY = 'sk-proj-';
     process.env.AUTOPOST_ENABLED = 'true';
+    expect(directAiAutonomyEnabled()).toBe(false);
+
+    process.env.OPENAI_API_KEY = 'sk-real';
     expect(directAiAutonomyEnabled()).toBe(true);
+
+    delete process.env.TOKEN_ENCRYPTION_REQUIRED;
+    delete process.env.AUTOPOST_ENABLED;
+    process.env.AVERION_PROVIDER_PROFILE = 'true';
+    process.env.OPENAI_API_KEY = 'sk-real';
+    expect(directAiAutonomyEnabled()).toBe(false);
   });
 });
