@@ -1,0 +1,7 @@
+api.instagram.com
+graph.facebook.com
+graph.instagram.com
+graph.threads.net
+www.facebook.com
+www.instagram.com
+www.threads.net

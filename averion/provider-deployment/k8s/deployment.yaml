@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postiz-provider-edge
+  namespace: averion-postiz-provider
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      averion.io/role: edge
+  template:
+    metadata:
+      labels:
+        averion.io/role: edge
+        averion.io/profile: provider
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: edge
+          image: averion/postiz-provider@sha256:d599c500baac8929c801daee926f5a8a3d9bcaaee3867dd20b30eb44cafebcb6
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: public
+              containerPort: 5000
+              protocol: TCP
+            - name: ops
+              containerPort: 15021
+              protocol: TCP
+          env:
+            - name: AVERION_PROVIDER_PROFILE
+              value: "true"
+            - name: TOKEN_ENCRYPTION_REQUIRED
+              value: "true"
+            - name: MCP_WRITE_DISABLED
+              value: "true"
+            - name: PUBLIC_API_WRITE_DISABLED
+              value: "true"
+            - name: ORG_API_KEY_BROWSER_EXPOSURE
+              value: "false"
+            - name: AUTOPOST_ENABLED
+              value: "false"
+            - name: DISABLE_REGISTRATION
+              value: "true"
+            - name: TOKEN_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: TOKEN_ENCRYPTION_KEY
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: JWT_SECRET
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: DATABASE_URL
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: REDIS_URL
+            - name: FACEBOOK_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: FACEBOOK_APP_ID
+            - name: FACEBOOK_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: FACEBOOK_APP_SECRET
+            - name: INSTAGRAM_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: INSTAGRAM_APP_ID
+            - name: INSTAGRAM_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: INSTAGRAM_APP_SECRET
+            - name: THREADS_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: THREADS_APP_ID
+            - name: THREADS_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: averion-postiz-provider
+                  key: THREADS_APP_SECRET
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: ops
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: ops
+            periodSeconds: 20
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: "1"
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]

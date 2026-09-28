@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postiz-provider-edge
+  namespace: averion-postiz-provider
+spec:
+  type: ClusterIP
+  selector:
+    averion.io/role: edge
+  ports:
+    - name: public
+      port: 5000
+      targetPort: public
+      protocol: TCP

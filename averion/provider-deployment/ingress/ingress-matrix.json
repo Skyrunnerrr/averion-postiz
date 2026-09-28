@@ -1,0 +1,4421 @@
+{
+  "version": 1,
+  "sourceSha": "c3f00d015c591d7927e338f4641c1b1b379c733d",
+  "defaultClass": "DENY",
+  "publicListener": "0.0.0.0:5000",
+  "opsListener": "pod:15021",
+  "classes": [
+    "PUBLIC_REQUIRED",
+    "PRIVATE_SERVICE",
+    "OPS_ONLY",
+    "DENY"
+  ],
+  "publicHttp": [
+    {
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/integrations/social/facebook"
+    },
+    {
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/integrations/social/instagram"
+    },
+    {
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/integrations/social/instagram-standalone"
+    },
+    {
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/integrations/social/threads"
+    }
+  ],
+  "routes": [
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/admin/errors",
+      "internalPath": "/admin/errors",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/admin/errors/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/admin/stats",
+      "internalPath": "/admin/stats",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/admin/stats/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/agents",
+      "internalPath": "/agents",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/agents/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/agents/:id",
+      "internalPath": "/agents/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/agents/[id]/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/analytics",
+      "internalPath": "/analytics",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/analytics/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/",
+      "internalPath": "/",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/root.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/.well-known/oauth-authorization-server",
+      "internalPath": "/.well-known/oauth-authorization-server",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/.well-known/oauth-protected-resource",
+      "internalPath": "/.well-known/oauth-protected-resource",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/.well-known/openai-apps-challenge",
+      "internalPath": "/.well-known/openai-apps-challenge",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/.well-known/openid-configuration",
+      "internalPath": "/.well-known/openid-configuration",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/admin/errors",
+      "internalPath": "/admin/errors",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/admin.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/admin/errors/platforms",
+      "internalPath": "/admin/errors/platforms",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/admin.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/admin/stats",
+      "internalPath": "/admin/stats",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/admin.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/analytics/:integration",
+      "internalPath": "/analytics/:integration",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/analytics.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/analytics/post/:postId",
+      "internalPath": "/analytics/post/:postId",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/analytics.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/announcements",
+      "internalPath": "/announcements",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/announcements.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/announcements",
+      "internalPath": "/announcements",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/announcements.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/announcements/:id",
+      "internalPath": "/announcements/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/announcements.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/activate",
+      "internalPath": "/auth/activate",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/auth/can-register",
+      "internalPath": "/auth/can-register",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/auth/farcaster/signer",
+      "internalPath": "/auth/farcaster/signer",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/farcaster/signer",
+      "internalPath": "/auth/farcaster/signer",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/forgot",
+      "internalPath": "/auth/forgot",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/forgot-return",
+      "internalPath": "/auth/forgot-return",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/login",
+      "internalPath": "/auth/login",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/auth/oauth-mobile-callback",
+      "internalPath": "/auth/oauth-mobile-callback",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/auth/oauth/:provider",
+      "internalPath": "/auth/oauth/:provider",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/oauth/:provider/exists",
+      "internalPath": "/auth/oauth/:provider/exists",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/oauth/:provider/redirect",
+      "internalPath": "/auth/oauth/:provider/redirect",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/register",
+      "internalPath": "/auth/register",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/auth/resend-activation",
+      "internalPath": "/auth/resend-activation",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/auth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/autopost",
+      "internalPath": "/autopost",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/autopost.controller.ts",
+      "writeSurface": "autopost",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/autopost",
+      "internalPath": "/autopost",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/autopost.controller.ts",
+      "writeSurface": "autopost",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/autopost/:id",
+      "internalPath": "/autopost/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/autopost.controller.ts",
+      "writeSurface": "autopost",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/autopost/:id",
+      "internalPath": "/autopost/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/autopost.controller.ts",
+      "writeSurface": "autopost",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/autopost/:id/active",
+      "internalPath": "/autopost/:id/active",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/autopost.controller.ts",
+      "writeSurface": "autopost",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/autopost/send",
+      "internalPath": "/autopost/send",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/autopost.controller.ts",
+      "writeSurface": "autopost",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/billing",
+      "internalPath": "/billing",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/add-subscription",
+      "internalPath": "/billing/add-subscription",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/apply-coupon",
+      "internalPath": "/billing/apply-coupon",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/apply-discount",
+      "internalPath": "/billing/apply-discount",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/cancel",
+      "internalPath": "/billing/cancel",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/cancel-coupon",
+      "internalPath": "/billing/cancel-coupon",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/cancel-subscription",
+      "internalPath": "/billing/cancel-subscription",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/billing/charges",
+      "internalPath": "/billing/charges",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/chatbase-refund",
+      "internalPath": "/billing/chatbase-refund",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/billing/chatbase-refund/preview",
+      "internalPath": "/billing/chatbase-refund/preview",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/billing/check-discount",
+      "internalPath": "/billing/check-discount",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/billing/check/:id",
+      "internalPath": "/billing/check/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/billing/coupon-info",
+      "internalPath": "/billing/coupon-info",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/embedded",
+      "internalPath": "/billing/embedded",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/finish-trial",
+      "internalPath": "/billing/finish-trial",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/billing/is-trial-finished",
+      "internalPath": "/billing/is-trial-finished",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/billing/portal",
+      "internalPath": "/billing/portal",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/prorate",
+      "internalPath": "/billing/prorate",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/refund-charges",
+      "internalPath": "/billing/refund-charges",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/subscribe",
+      "internalPath": "/billing/subscribe",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/billing/sync",
+      "internalPath": "/billing/sync",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/billing.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/clipping",
+      "internalPath": "/clipping",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/clipping.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/clipping",
+      "internalPath": "/clipping",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/clipping.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/clipping-widget/status",
+      "internalPath": "/clipping-widget/status",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/clipping.widget.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/clipping/:id",
+      "internalPath": "/clipping/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/clipping.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/copilot/:thread/list",
+      "internalPath": "/copilot/:thread/list",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/copilot.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/copilot/agent",
+      "internalPath": "/copilot/agent",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/copilot.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/copilot/chat",
+      "internalPath": "/copilot/chat",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/copilot.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/copilot/credits",
+      "internalPath": "/copilot/credits",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/copilot.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/copilot/list",
+      "internalPath": "/copilot/list",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/copilot.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/docs",
+      "internalPath": "/docs",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/helpers/src/swagger/load.swagger.ts",
+      "writeSurface": "dashboard",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/enterprise/create-user",
+      "internalPath": "/enterprise/create-user",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/enterprise.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/enterprise/delete-channel",
+      "internalPath": "/enterprise/delete-channel",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/enterprise.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/enterprise/url",
+      "internalPath": "/enterprise/url",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/enterprise.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/integrations",
+      "internalPath": "/integrations",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations",
+      "internalPath": "/integrations",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/no.auth.integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/:id",
+      "internalPath": "/integrations/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/integrations/:id/customer-name",
+      "internalPath": "/integrations/:id/customer-name",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/integrations/:id/group",
+      "internalPath": "/integrations/:id/group",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/:id/nickname",
+      "internalPath": "/integrations/:id/nickname",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/:id/plugs",
+      "internalPath": "/integrations/:id/plugs",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/:id/plugs",
+      "internalPath": "/integrations/:id/plugs",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/:id/settings",
+      "internalPath": "/integrations/:id/settings",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/:id/time",
+      "internalPath": "/integrations/:id/time",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/:identifier/internal-plugs",
+      "internalPath": "/integrations/:identifier/internal-plugs",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/customers",
+      "internalPath": "/integrations/customers",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/disable",
+      "internalPath": "/integrations/disable",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/enable",
+      "internalPath": "/integrations/enable",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/extension-refresh",
+      "internalPath": "/integrations/extension-refresh",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/no.auth.integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/function",
+      "internalPath": "/integrations/function",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/list",
+      "internalPath": "/integrations/list",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/mentions",
+      "internalPath": "/integrations/mentions",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/moltbook/register",
+      "internalPath": "/integrations/moltbook/register",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/moltbook/status",
+      "internalPath": "/integrations/moltbook/status",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/plug/list",
+      "internalPath": "/integrations/plug/list",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/integrations/plugs/:id/activate",
+      "internalPath": "/integrations/plugs/:id/activate",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/provider/:id/connect",
+      "internalPath": "/integrations/provider/:id/connect",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/public/provider/:id/connect",
+      "internalPath": "/integrations/public/provider/:id/connect",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/no.auth.integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/integrations/social-connect/:integration",
+      "internalPath": "/integrations/social-connect/:integration",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/no.auth.integrations.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/social/:integration",
+      "internalPath": "/integrations/social/:integration",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/integrations/telegram/updates",
+      "internalPath": "/integrations/telegram/updates",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/integrations.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/mcp",
+      "internalPath": "/mcp",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/mcp-oauth",
+      "internalPath": "/mcp-oauth",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/mcp-oauth-chatgpt",
+      "internalPath": "/mcp-oauth-chatgpt",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/mcp-oauth-claude",
+      "internalPath": "/mcp-oauth-claude",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/mcp-oauth-dynamic",
+      "internalPath": "/mcp-oauth-dynamic",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/mcp/:id",
+      "internalPath": "/mcp/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/media",
+      "internalPath": "/media",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/media-widget/status",
+      "internalPath": "/media-widget/status",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.widget.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media-widget/upload",
+      "internalPath": "/media-widget/upload",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.widget.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/:endpoint",
+      "internalPath": "/media/:endpoint",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/media/:id",
+      "internalPath": "/media/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/media/:id/status",
+      "internalPath": "/media/:id/status",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/generate-image",
+      "internalPath": "/media/generate-image",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/generate-image-with-prompt",
+      "internalPath": "/media/generate-image-with-prompt",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/generate-video",
+      "internalPath": "/media/generate-video",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/media/generate-video/:type/allowed",
+      "internalPath": "/media/generate-video/:type/allowed",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/information",
+      "internalPath": "/media/information",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/save-media",
+      "internalPath": "/media/save-media",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/upload-server",
+      "internalPath": "/media/upload-server",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/upload-simple",
+      "internalPath": "/media/upload-simple",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/media/video-options",
+      "internalPath": "/media/video-options",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/media/video/function",
+      "internalPath": "/media/video/function",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/media.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/message/:id",
+      "internalPath": "/message/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/monitor/queue/:name",
+      "internalPath": "/monitor/queue/:name",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/monitor.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/notifications",
+      "internalPath": "/notifications",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/notifications.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/notifications/list",
+      "internalPath": "/notifications/list",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/notifications.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/oauth/authorize",
+      "internalPath": "/oauth/authorize",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/oauth/authorize",
+      "internalPath": "/oauth/authorize",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/oauth/register",
+      "internalPath": "/oauth/register",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/oauth/token",
+      "internalPath": "/oauth/token",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/oauth/userinfo",
+      "internalPath": "/oauth/userinfo",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/oauth/userinfo",
+      "internalPath": "/oauth/userinfo",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/payment/:provider",
+      "internalPath": "/payment/:provider",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/payment.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts",
+      "internalPath": "/posts",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/posts",
+      "internalPath": "/posts",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/posts/:group",
+      "internalPath": "/posts/:group",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/:id",
+      "internalPath": "/posts/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/posts/:id/comments",
+      "internalPath": "/posts/:id/comments",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/posts/:id/date",
+      "internalPath": "/posts/:id/date",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/:id/missing",
+      "internalPath": "/posts/:id/missing",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/posts/:id/release-id",
+      "internalPath": "/posts/:id/release-id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/:id/statistics",
+      "internalPath": "/posts/:id/statistics",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/posts/comments/:commentId/resolve",
+      "internalPath": "/posts/comments/:commentId/resolve",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/find-slot",
+      "internalPath": "/posts/find-slot",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/find-slot/:id",
+      "internalPath": "/posts/find-slot/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/posts/generator",
+      "internalPath": "/posts/generator",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/posts/generator/draft",
+      "internalPath": "/posts/generator/draft",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/group/:group",
+      "internalPath": "/posts/group/:group",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/group/:group/debug-export",
+      "internalPath": "/posts/group/:group/debug-export",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/list",
+      "internalPath": "/posts/list",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/old",
+      "internalPath": "/posts/old",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/posts/separate-posts",
+      "internalPath": "/posts/separate-posts",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/posts/should-shortlink",
+      "internalPath": "/posts/should-shortlink",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/posts/tags",
+      "internalPath": "/posts/tags",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/posts/tags",
+      "internalPath": "/posts/tags",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/posts/tags/:id",
+      "internalPath": "/posts/tags/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/posts/tags/:id",
+      "internalPath": "/posts/tags/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/posts/valid",
+      "internalPath": "/posts/valid",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/posts.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/agent",
+      "internalPath": "/public/agent",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/public.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/modify-subscription",
+      "internalPath": "/public/modify-subscription",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/public.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/posts/:id",
+      "internalPath": "/public/posts/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/public.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/posts/:id/comments",
+      "internalPath": "/public/posts/:id/comments",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/public.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/posts/:id/comments",
+      "internalPath": "/public/posts/:id/comments",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/public.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/stream",
+      "internalPath": "/public/stream",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/public.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/t",
+      "internalPath": "/public/t",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/public.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/analytics/:integration",
+      "internalPath": "/public/v1/analytics/:integration",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/analytics/post/:postId",
+      "internalPath": "/public/v1/analytics/post/:postId",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/clipping",
+      "internalPath": "/public/v1/clipping",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/v1/clipping",
+      "internalPath": "/public/v1/clipping",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/clipping/:id",
+      "internalPath": "/public/v1/clipping/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/debug/account",
+      "internalPath": "/public/v1/debug/account",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/debug/activity",
+      "internalPath": "/public/v1/debug/activity",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/debug/channels",
+      "internalPath": "/public/v1/debug/channels",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/debug/posts/:id",
+      "internalPath": "/public/v1/debug/posts/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/find-slot/:id",
+      "internalPath": "/public/v1/find-slot/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/v1/generate-video",
+      "internalPath": "/public/v1/generate-video",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/groups",
+      "internalPath": "/public/v1/groups",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/integration-settings/:id",
+      "internalPath": "/public/v1/integration-settings/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/v1/integration-trigger/:id",
+      "internalPath": "/public/v1/integration-trigger/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/integrations",
+      "internalPath": "/public/v1/integrations",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/public/v1/integrations/:id",
+      "internalPath": "/public/v1/integrations/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/is-connected",
+      "internalPath": "/public/v1/is-connected",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/notifications",
+      "internalPath": "/public/v1/notifications",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/posts",
+      "internalPath": "/public/v1/posts",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/v1/posts",
+      "internalPath": "/public/v1/posts",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/public/v1/posts/:id",
+      "internalPath": "/public/v1/posts/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/posts/:id/missing",
+      "internalPath": "/public/v1/posts/:id/missing",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/public/v1/posts/:id/release-id",
+      "internalPath": "/public/v1/posts/:id/release-id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/public/v1/posts/:id/settings",
+      "internalPath": "/public/v1/posts/:id/settings",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/public/v1/posts/:id/status",
+      "internalPath": "/public/v1/posts/:id/status",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/public/v1/posts/group/:group",
+      "internalPath": "/public/v1/posts/group/:group",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/social/:integration",
+      "internalPath": "/public/v1/social/:integration",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/v1/upload",
+      "internalPath": "/public/v1/upload",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/v1/upload-from-url",
+      "internalPath": "/public/v1/upload-from-url",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/public/v1/users",
+      "internalPath": "/public/v1/users",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api-read",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/public/v1/video/function",
+      "internalPath": "/public/v1/video/function",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/public-api/routes/v1/public.integrations.controller.ts",
+      "writeSurface": "public-api",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/sets",
+      "internalPath": "/sets",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/sets.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/sets",
+      "internalPath": "/sets",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/sets.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/sets",
+      "internalPath": "/sets",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/sets.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/sets/:id",
+      "internalPath": "/sets/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/sets.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/settings/shortlink",
+      "internalPath": "/settings/shortlink",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/settings.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/settings/shortlink",
+      "internalPath": "/settings/shortlink",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/settings.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/settings/team",
+      "internalPath": "/settings/team",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/settings.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/settings/team",
+      "internalPath": "/settings/team",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/settings.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/settings/team/:id",
+      "internalPath": "/settings/team/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/settings.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/settings/team/add",
+      "internalPath": "/settings/team/add",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/settings.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/signatures",
+      "internalPath": "/signatures",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/signature.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/signatures",
+      "internalPath": "/signatures",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/signature.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/signatures/:id",
+      "internalPath": "/signatures/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/signature.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/signatures/:id",
+      "internalPath": "/signatures/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/signature.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/signatures/default",
+      "internalPath": "/signatures/default",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/signature.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "path": "/api/sse/:id",
+      "internalPath": "/sse/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "libraries/nestjs-libraries/src/chat/start.mcp.ts",
+      "writeSurface": "mcp",
+      "note": "MCP, OAuth metadata, and Swagger are not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/stripe",
+      "internalPath": "/stripe",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/stripe.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/third-party",
+      "internalPath": "/third-party",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/third-party.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/third-party/:id",
+      "internalPath": "/third-party/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/third-party.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/third-party/:id/import",
+      "internalPath": "/third-party/:id/import",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/third-party.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/third-party/:id/submit",
+      "internalPath": "/third-party/:id/submit",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/third-party.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/third-party/:identifier",
+      "internalPath": "/third-party/:identifier",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/third-party.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/third-party/function/:id/:functionName",
+      "internalPath": "/third-party/function/:id/:functionName",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/third-party.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/third-party/list",
+      "internalPath": "/third-party/list",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/third-party.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/api/uploads/*",
+      "internalPath": "/api/uploads/*",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/api/uploads/[[...path]]/route.ts",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/agent-media-sso",
+      "internalPath": "/user/agent-media-sso",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/api-key/rotate",
+      "internalPath": "/user/api-key/rotate",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "org-api-key",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/approved-apps",
+      "internalPath": "/user/approved-apps",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/approved-apps.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/user/approved-apps/:id",
+      "internalPath": "/user/approved-apps/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/approved-apps.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/change-org",
+      "internalPath": "/user/change-org",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/chatbase-token",
+      "internalPath": "/user/chatbase-token",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/delete-account",
+      "internalPath": "/user/delete-account",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/email-notifications",
+      "internalPath": "/user/email-notifications",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/email-notifications",
+      "internalPath": "/user/email-notifications",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/impersonate",
+      "internalPath": "/user/impersonate",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/impersonate",
+      "internalPath": "/user/impersonate",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/join-org",
+      "internalPath": "/user/join-org",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/logout",
+      "internalPath": "/user/logout",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/user/oauth-app",
+      "internalPath": "/user/oauth-app",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth-app.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/oauth-app",
+      "internalPath": "/user/oauth-app",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth-app.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/oauth-app",
+      "internalPath": "/user/oauth-app",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth-app.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/user/oauth-app",
+      "internalPath": "/user/oauth-app",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth-app.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/oauth-app/rotate-secret",
+      "internalPath": "/user/oauth-app/rotate-secret",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/oauth-app.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/organizations",
+      "internalPath": "/user/organizations",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/personal",
+      "internalPath": "/user/personal",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/personal",
+      "internalPath": "/user/personal",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/self",
+      "internalPath": "/user/self",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "org-api-key",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/subscription",
+      "internalPath": "/user/subscription",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/user/subscription/tiers",
+      "internalPath": "/user/subscription/tiers",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/switch",
+      "internalPath": "/user/switch",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/user/t",
+      "internalPath": "/user/t",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/users.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/api/webhooks",
+      "internalPath": "/webhooks",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/webhooks.controller.ts",
+      "writeSurface": "",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/webhooks",
+      "internalPath": "/webhooks",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/webhooks.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "PUT"
+      ],
+      "path": "/api/webhooks",
+      "internalPath": "/webhooks",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/webhooks.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "DELETE"
+      ],
+      "path": "/api/webhooks/:id",
+      "internalPath": "/webhooks/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/webhooks.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST"
+      ],
+      "path": "/api/webhooks/send",
+      "internalPath": "/webhooks/send",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/backend/src/api/routes/webhooks.controller.ts",
+      "writeSurface": "dashboard",
+      "note": "Application HTTP is not selected by the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/auth",
+      "internalPath": "/auth",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/auth/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/auth/activate",
+      "internalPath": "/auth/activate",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/auth/activate/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/auth/activate/:code",
+      "internalPath": "/auth/activate/:code",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/auth/activate/[code]/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/auth/forgot",
+      "internalPath": "/auth/forgot",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/auth/forgot/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/auth/forgot/:token",
+      "internalPath": "/auth/forgot/:token",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/auth/forgot/[token]/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/auth/login",
+      "internalPath": "/auth/login",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/auth/login/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/auth/login-required",
+      "internalPath": "/auth/login-required",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/auth/login-required/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/billing",
+      "internalPath": "/billing",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/billing/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/billing/lifetime",
+      "internalPath": "/billing/lifetime",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/billing/lifetime/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/err",
+      "internalPath": "/err",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/err/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET"
+      ],
+      "path": "/health/status",
+      "internalPath": "/health/status",
+      "class": "OPS_ONLY",
+      "otherMethods": "DENY",
+      "plane": "ops",
+      "source": "apps/orchestrator/src/health.controller.ts",
+      "writeSurface": "",
+      "note": "Orchestrator health is probe-only on port 3002, not on the public edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/healthz",
+      "internalPath": "/healthz",
+      "class": "OPS_ONLY",
+      "otherMethods": "DENY",
+      "plane": "ops",
+      "source": "averion/provider-deployment/ingress/nginx.provider.conf",
+      "writeSurface": "",
+      "note": "Readiness on port 15021 only. Not selected by the public Service."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/integrations/social/:provider",
+      "internalPath": "/integrations/social/:provider",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Any provider other than the four Meta callbacks is denied."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/integrations/social/facebook",
+      "internalPath": "/integrations/social/facebook",
+      "class": "PUBLIC_REQUIRED",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "meta-callback",
+      "note": "Meta browser redirect only. Static page, no Postiz SPA and no write."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/integrations/social/facebook",
+      "internalPath": "/integrations/social/facebook",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Write methods on the callback path are denied."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/integrations/social/instagram",
+      "internalPath": "/integrations/social/instagram",
+      "class": "PUBLIC_REQUIRED",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "meta-callback",
+      "note": "Meta browser redirect only. Static page, no Postiz SPA and no write."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/integrations/social/instagram",
+      "internalPath": "/integrations/social/instagram",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Write methods on the callback path are denied."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/integrations/social/instagram-standalone",
+      "internalPath": "/integrations/social/instagram-standalone",
+      "class": "PUBLIC_REQUIRED",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "meta-callback",
+      "note": "Meta browser redirect only. Static page, no Postiz SPA and no write."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/integrations/social/instagram-standalone",
+      "internalPath": "/integrations/social/instagram-standalone",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Write methods on the callback path are denied."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "path": "/integrations/social/threads",
+      "internalPath": "/integrations/social/threads",
+      "class": "PUBLIC_REQUIRED",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "meta-callback",
+      "note": "Meta browser redirect only. Static page, no Postiz SPA and no write."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/integrations/social/threads",
+      "internalPath": "/integrations/social/threads",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/integrations/social/[provider]/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Write methods on the callback path are denied."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/launches",
+      "internalPath": "/launches",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/launches/page.tsx",
+      "writeSurface": "dashboard",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/media",
+      "internalPath": "/media",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/media/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/modal/:style/:platform",
+      "internalPath": "/modal/:style/:platform",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(extension)/modal/[style]/[platform]/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/oauth/authorize",
+      "internalPath": "/oauth/authorize",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/oauth/authorize/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/p/:id",
+      "internalPath": "/p/:id",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(preview)/p/[id]/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/plugs",
+      "internalPath": "/plugs",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/plugs/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/provider/:p",
+      "internalPath": "/provider/:p",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(provider)/provider/[p]/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/provider/add",
+      "internalPath": "/provider/add",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(provider)/provider/add/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/settings",
+      "internalPath": "/settings",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/settings/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "path": "/third-party",
+      "internalPath": "/third-party",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "apps/frontend/src/app/(app)/(site)/third-party/page.tsx",
+      "writeSurface": "",
+      "note": "Postiz UI is not served by the provider edge."
+    },
+    {
+      "kind": "http",
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST"
+      ],
+      "path": "/uploads/*",
+      "internalPath": "/uploads/*",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "var/docker/nginx.conf",
+      "writeSurface": "",
+      "note": "Stock nginx publishes /uploads/. The provider edge does not."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "backend:3000",
+      "internalPath": "backend:3000",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "closed",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Backend HTTP is not in any Service."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "frontend:4200",
+      "internalPath": "frontend:4200",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "closed",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Postiz frontend is not deployed."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "host-spotlight:8969",
+      "internalPath": "host-spotlight:8969",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "closed",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Spotlight is not deployed."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "host-temporal-ui:8080",
+      "internalPath": "host-temporal-ui:8080",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "closed",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Temporal UI is not deployed."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "host-temporal:7233",
+      "internalPath": "host-temporal:7233",
+      "class": "DENY",
+      "otherMethods": "DENY",
+      "plane": "closed",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Stock compose publishes 7233. Provider compose does not."
+    },
+    {
+      "kind": "udp",
+      "methods": [
+        "UDP"
+      ],
+      "path": "kube-dns:53",
+      "internalPath": "kube-dns:53",
+      "class": "PRIVATE_SERVICE",
+      "otherMethods": "DENY",
+      "plane": "cluster",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Cluster DNS only."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "ops-edge:15021",
+      "internalPath": "ops-edge:15021",
+      "class": "OPS_ONLY",
+      "otherMethods": "DENY",
+      "plane": "ops",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Probe port, not in the public Service."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "orchestrator:3002",
+      "internalPath": "orchestrator:3002",
+      "class": "OPS_ONLY",
+      "otherMethods": "DENY",
+      "plane": "ops",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Orchestrator health is probe-only."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "postiz-postgres:5432",
+      "internalPath": "postiz-postgres:5432",
+      "class": "PRIVATE_SERVICE",
+      "otherMethods": "DENY",
+      "plane": "cluster",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Postgres is cluster-internal."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "postiz-redis:6379",
+      "internalPath": "postiz-redis:6379",
+      "class": "PRIVATE_SERVICE",
+      "otherMethods": "DENY",
+      "plane": "cluster",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Redis is cluster-internal."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "public-edge:5000",
+      "internalPath": "public-edge:5000",
+      "class": "PUBLIC_REQUIRED",
+      "otherMethods": "DENY",
+      "plane": "public",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Only the classified public listener."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "temporal-elasticsearch:9200",
+      "internalPath": "temporal-elasticsearch:9200",
+      "class": "PRIVATE_SERVICE",
+      "otherMethods": "DENY",
+      "plane": "cluster",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Temporal search is cluster-internal."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "temporal-postgresql:5432",
+      "internalPath": "temporal-postgresql:5432",
+      "class": "PRIVATE_SERVICE",
+      "otherMethods": "DENY",
+      "plane": "cluster",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Temporal database is cluster-internal."
+    },
+    {
+      "kind": "tcp",
+      "methods": [
+        "TCP"
+      ],
+      "path": "temporal:7233",
+      "internalPath": "temporal:7233",
+      "class": "PRIVATE_SERVICE",
+      "otherMethods": "DENY",
+      "plane": "cluster",
+      "source": "averion/provider-deployment/k8s/networkpolicy.yaml",
+      "writeSurface": "",
+      "note": "Temporal frontend is cluster-internal."
+    }
+  ]
+}
