@@ -17,6 +17,7 @@ import { PaymentService } from '@gitroom/nestjs-libraries/services/payment/payme
 import { Response, Request } from 'express';
 import { AuthService } from '@gitroom/backend/services/auth/auth.service';
 import { AuthService as AuthChecker } from '@gitroom/helpers/auth/auth.service';
+import { exposeOrgApiKeyToUsers } from '@gitroom/helpers/auth/deployment.gates';
 import { OrganizationService } from '@gitroom/nestjs-libraries/database/prisma/organizations/organization.service';
 import { CheckPolicies } from '@gitroom/backend/services/auth/permissions/permissions.ability';
 import { getCookieUrlFromDomain } from '@gitroom/helpers/subdomain/subdomain.management';
@@ -131,10 +132,11 @@ export class UsersController {
       allowTrial: organization?.allowTrial,
       streakSince: organization?.streakSince || null,
       publicApi:
+        exposeOrgApiKeyToUsers() &&
         // @ts-ignore
-        organization?.users[0]?.role === 'SUPERADMIN' ||
-        // @ts-ignore
-        organization?.users[0]?.role === 'ADMIN'
+        (organization?.users[0]?.role === 'SUPERADMIN' ||
+          // @ts-ignore
+          organization?.users[0]?.role === 'ADMIN')
           ? organization?.apiKey
           : '',
     };

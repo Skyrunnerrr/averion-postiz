@@ -5,6 +5,7 @@ import { UpdateOAuthAppDto } from '@gitroom/nestjs-libraries/dtos/oauth/update-o
 import { RegisterClientDto } from '@gitroom/nestjs-libraries/dtos/oauth/register-client.dto';
 import { makeSecureId } from '@gitroom/nestjs-libraries/services/make.secure.id';
 import { AuthService } from '@gitroom/helpers/auth/auth.service';
+import { mcpScopes } from '@gitroom/helpers/auth/deployment.gates';
 import { extractBearerToken } from '@gitroom/nestjs-libraries/chat/oauth-types';
 import { createHash } from 'crypto';
 import { OAuthApp } from '@prisma/client';
@@ -208,7 +209,7 @@ export class OAuthService {
       token_endpoint_auth_method: tokenEndpointAuthMethod,
       grant_types: ['authorization_code'],
       response_types: ['code'],
-      scope: 'mcp:read mcp:write',
+      scope: mcpScopes(['mcp:read', 'mcp:write']).join(' '),
     };
   }
 
@@ -252,11 +253,11 @@ export class OAuthService {
   }
 
   private grantedScope(app: EmailClaimsApp) {
-    return [
+    return mcpScopes([
       ...(this.allowsEmailClaims(app) ? ['openid', 'email'] : []),
       'mcp:read',
       'mcp:write',
-    ].join(' ');
+    ]).join(' ');
   }
 
   async validateAuthorizationRequest(

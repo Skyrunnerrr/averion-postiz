@@ -11,6 +11,11 @@ import { RefreshToken } from '@gitroom/nestjs-libraries/integrations/social.abst
 import { timer } from '@gitroom/helpers/utils/timer';
 import { checkAuth } from '@gitroom/nestjs-libraries/chat/auth.context';
 import { RefreshIntegrationService } from '@gitroom/nestjs-libraries/integrations/refresh.integration.service';
+import {
+  openIntegrationForProviderCall,
+  scrubProviderSecrets,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
 
 @Injectable()
 export class IntegrationTriggerTool implements AgentToolInterface {
@@ -99,21 +104,27 @@ export class IntegrationTriggerTool implements AgentToolInterface {
           );
         }
 
+        const ready = openIntegrationForProviderCall(getIntegration);
+        let token = ready.token;
+        let integrationForCall = ready;
         let refreshed = false;
         while (true) {
           try {
-            // @ts-ignore
-            const load = await integrationProvider[inputData.methodName](
-              getIntegration.token,
-              inputData.dataSchema.reduce(
-                (all: Record<string, string>, current: { key: string; value: string }) => ({
-                  ...all,
-                  [current.key]: current.value,
-                }),
-                {} as Record<string, string>
-              ),
-              getIntegration.internalId,
-              getIntegration
+            const load = await withProviderSecrets(
+              [token, integrationForCall.refreshToken],
+              () =>
+                (integrationProvider as any)[inputData.methodName](
+                  token,
+                  inputData.dataSchema.reduce(
+                    (all: Record<string, string>, current: { key: string; value: string }) => ({
+                      ...all,
+                      [current.key]: current.value,
+                    }),
+                    {} as Record<string, string>
+                  ),
+                  integrationForCall.internalId,
+                  integrationForCall
+                )
             );
 
             return { output: load };
@@ -137,7 +148,12 @@ export class IntegrationTriggerTool implements AgentToolInterface {
               const { accessToken } = data;
 
               if (accessToken) {
-                getIntegration.token = accessToken;
+                token = accessToken;
+                integrationForCall = {
+                  ...ready,
+                  token: accessToken,
+                  refreshToken: data.refreshToken,
+                };
 
                 if (integrationProvider.refreshWait) {
                   await timer(10000);
@@ -156,7 +172,7 @@ export class IntegrationTriggerTool implements AgentToolInterface {
             throw new Error(
               `Provider call failed: ${
                 err instanceof Error && err.message
-                  ? err.message
+                  ? scrubProviderSecrets(err.message)
                   : 'unexpected error'
               }`
             );

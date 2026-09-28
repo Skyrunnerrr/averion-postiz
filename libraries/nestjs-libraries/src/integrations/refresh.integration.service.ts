@@ -7,6 +7,10 @@ import {
   SocialProvider,
 } from '@gitroom/nestjs-libraries/integrations/social/social.integrations.interface';
 import { TemporalService } from 'nestjs-temporal-core';
+import {
+  openIntegrationForProviderCall,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
 
 @Injectable()
 export class RefreshIntegrationService {
@@ -73,9 +77,11 @@ export class RefreshIntegrationService {
     socialProvider: SocialProvider,
     cause = ''
   ): Promise<AuthTokenDetails | false> {
-    const refresh: false | AuthTokenDetails = await socialProvider
-      .refreshToken(integration.refreshToken)
-      .catch((err) => false);
+    const opened = openIntegrationForProviderCall(integration);
+    const refresh: false | AuthTokenDetails = await withProviderSecrets(
+      [opened.token, opened.refreshToken],
+      () => socialProvider.refreshToken(opened.refreshToken).catch(() => false)
+    );
 
     if (!refresh || !refresh.accessToken) {
       await this._integrationService.refreshNeeded(
@@ -104,10 +110,14 @@ export class RefreshIntegrationService {
       return refresh;
     }
 
-    const reConnect = await socialProvider.reConnect(
-      integration.rootInternalId,
-      integration.internalId,
-      refresh.accessToken
+    const reConnect = await withProviderSecrets(
+      [refresh.accessToken, refresh.refreshToken],
+      () =>
+        socialProvider.reConnect(
+          integration.rootInternalId,
+          integration.internalId,
+          refresh.accessToken
+        )
     );
 
     return {

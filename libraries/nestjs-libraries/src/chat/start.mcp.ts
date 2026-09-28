@@ -8,6 +8,7 @@ import { OAuthService } from '@gitroom/nestjs-libraries/database/prisma/oauth/oa
 import { runWithContext } from './async.storage';
 import { createOAuthMiddleware } from './oauth-middleware';
 import { UPLOAD_WIDGET_URI, uploadWidgetHtml } from '@gitroom/nestjs-libraries/chat/ui/upload.widget';
+import { filterMcpWriteTools, mcpScopes } from '@gitroom/helpers/auth/deployment.gates';
 import { CLIPPING_WIDGET_URI, clippingWidgetHtml } from '@gitroom/nestjs-libraries/chat/ui/clipping.widget';
 import { UploadFactory } from '@gitroom/nestjs-libraries/upload/upload.factory';
 const fixAcceptHeader = (req: Request) => {
@@ -23,11 +24,11 @@ const fixAcceptHeader = (req: Request) => {
 
 const openAiOAuthClientId = process.env.OPENAI_OAUTH_CLIENT_ID?.trim();
 const enableOidcEmailClaims = Boolean(openAiOAuthClientId);
-const oauthScopes = [
+const oauthScopes = mcpScopes([
   ...(enableOidcEmailClaims ? ['openid', 'email'] : []),
   'mcp:read',
   'mcp:write',
-];
+]);
 
 export const startMcp = async (app: INestApplication) => {
   const mastraService = app.get(MastraService, { strict: false });
@@ -46,11 +47,11 @@ export const startMcp = async (app: INestApplication) => {
 
   const mastra = await mastraService.mastra();
   const agent = mastra.getAgent('postiz');
-  const tools = {
+  const tools = filterMcpWriteTools({
     ...(await agent.listTools()),
     // tools that only make sense inside an MCP host (ui:// widgets)
     ...(await loadToolsService.loadTools(true)),
-  };
+  });
 
   // The Claude connector directory does not accept AI media generation tools,
   // so the directory-facing endpoint hides them. Direct connections

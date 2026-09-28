@@ -50,6 +50,10 @@ import { UsersService } from '@gitroom/nestjs-libraries/database/prisma/users/us
 import { SuperAdminGuard } from '@gitroom/backend/services/auth/super.admin.guard';
 import { timer } from '@gitroom/helpers/utils/timer';
 import { ioRedis } from '@gitroom/nestjs-libraries/redis/redis.service';
+import {
+  openIntegrationForProviderCall,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
 import { AdminStatsService } from '@gitroom/nestjs-libraries/database/prisma/admin-stats/admin-stats.service';
 import { OrganizationService } from '@gitroom/nestjs-libraries/database/prisma/organizations/organization.service';
 import { GetOrgActivityDto } from '@gitroom/nestjs-libraries/dtos/analytics/get.org.activity.dto';
@@ -613,14 +617,21 @@ export class PublicIntegrationsController {
       throw new HttpException({ msg: 'Tool not found' }, 404);
     }
 
+    const ready = openIntegrationForProviderCall(getIntegration);
+    let token = ready.token;
+    let integrationForCall = ready;
+
     while (true) {
       try {
-        // @ts-ignore
-        const result = await integrationProvider[body.methodName](
-          getIntegration.token,
-          body.data || {},
-          getIntegration.internalId,
-          getIntegration
+        const result = await withProviderSecrets(
+          [token, integrationForCall.refreshToken],
+          () =>
+            (integrationProvider as any)[body.methodName](
+              token,
+              body.data || {},
+              integrationForCall.internalId,
+              integrationForCall
+            )
         );
 
         return { output: result };
@@ -644,7 +655,12 @@ export class PublicIntegrationsController {
           const { accessToken } = data;
 
           if (accessToken) {
-            getIntegration.token = accessToken;
+            token = accessToken;
+            integrationForCall = {
+              ...ready,
+              token: accessToken,
+              refreshToken: data.refreshToken,
+            };
 
             if (integrationProvider.refreshWait) {
               await timer(10000);

@@ -8,6 +8,10 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { ioRedis } from '@gitroom/nestjs-libraries/redis/redis.service';
+import {
+  scrubProviderSecrets,
+  withProviderSecrets,
+} from '@gitroom/helpers/auth/provider.credential';
 import { ConnectIntegrationDto } from '@gitroom/nestjs-libraries/dtos/integrations/connect.integration.dto';
 import { IntegrationManager } from '@gitroom/nestjs-libraries/integrations/integration.manager';
 import { IntegrationService } from '@gitroom/nestjs-libraries/database/prisma/integrations/integration.service';
@@ -261,7 +265,12 @@ export class NoAuthIntegrationsController {
     this._refreshIntegrationService
       .startRefreshWorkflow(org.id, createUpdate.id, integrationProvider)
       .catch((err) => {
-        console.log(err);
+        console.log(
+          scrubProviderSecrets(err instanceof Error ? err.message : '', [
+            accessToken,
+            refreshToken,
+          ])
+        );
       });
 
     // Fetch pages if this is a two-step provider and not a refresh
@@ -277,11 +286,15 @@ export class NoAuthIntegrationsController {
             : null;
 
         if (fetchMethod) {
-          // @ts-ignore - dynamic method call
-          pages = await integrationProvider[fetchMethod](accessToken);
+          pages = await withProviderSecrets([accessToken], () =>
+            (integrationProvider as any)[fetchMethod](accessToken)
+          );
         }
       } catch (err) {
-        console.log('Failed to fetch pages:', err);
+        console.log(
+          'Failed to fetch pages:',
+          scrubProviderSecrets(err instanceof Error ? err.message : '', [accessToken])
+        );
       }
     }
 

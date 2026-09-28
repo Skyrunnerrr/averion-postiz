@@ -5,6 +5,7 @@ import { OrganizationService } from '@gitroom/nestjs-libraries/database/prisma/o
 import { OAuthService } from '@gitroom/nestjs-libraries/database/prisma/oauth/oauth.service';
 import { HttpForbiddenException } from '@gitroom/nestjs-libraries/services/exception.filter';
 import { setSentryUserContext } from '@gitroom/nestjs-libraries/sentry/initialize.sentry';
+import { publicApiWriteDecision } from '@gitroom/helpers/auth/deployment.gates';
 
 @Injectable()
 export class PublicAuthMiddleware implements NestMiddleware {
@@ -25,6 +26,14 @@ export class PublicAuthMiddleware implements NestMiddleware {
       req.headers.Authorization) as string;
     if (!auth) {
       res.status(HttpStatus.UNAUTHORIZED).json({ msg: 'No API Key found' });
+      return;
+    }
+
+    const writeDecision = publicApiWriteDecision(req.method, true);
+    if (writeDecision === 'forbidden') {
+      res
+        .status(HttpStatus.FORBIDDEN)
+        .json({ msg: 'Public API writes are disabled' });
       return;
     }
     try {

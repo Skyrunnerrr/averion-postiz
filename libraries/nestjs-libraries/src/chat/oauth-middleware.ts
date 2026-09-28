@@ -11,6 +11,7 @@
 import type * as http from 'node:http';
 
 import type { MCPServerOAuthConfig, TokenValidationResult } from './oauth-types';
+import { mcpScopes } from '@gitroom/helpers/auth/deployment.gates';
 import {
   generateProtectedResourceMetadata,
   generateWWWAuthenticateHeader,
@@ -147,7 +148,7 @@ export function createStaticTokenValidator(validTokens: string[]): MCPServerOAut
   const tokenSet = new Set(validTokens);
   return async (token: string): Promise<TokenValidationResult> => {
     if (tokenSet.has(token)) {
-      return { valid: true, scopes: ['mcp:read', 'mcp:write'] };
+      return { valid: true, scopes: mcpScopes(['mcp:read', 'mcp:write']) };
     }
     return {
       valid: false,
