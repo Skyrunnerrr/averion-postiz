@@ -1,0 +1,69 @@
+name: Averion provider security
+
+on:
+  pull_request:
+    branches:
+      - averion/provider-base/**
+      - cursor/p2a-security-hardening-1862
+  push:
+    branches:
+      - averion/provider-base/**
+      - cursor/p2a-security-hardening-1862
+
+permissions:
+  contents: read
+
+jobs:
+  provider-security:
+    name: provider security gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm 10.6.1
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.1
+          run_install: false
+
+      - name: Use Node.js 22.12.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lockfile unchanged
+        run: git diff --exit-code -- pnpm-lock.yaml
+
+      - name: Secret canary scan
+        run: |
+          set +e
+          pnpm exec jest --config jest.security.config.js --ci --runInBand --forceExit --coverage=false --testPathPattern secret.canary.spec.ts
+          code=$?
+          set -e
+          if [ "$code" -ne 0 ]; then
+            echo "CANARY_SECRET_SCAN=FAIL"
+            exit "$code"
+          fi
+          echo "CANARY_SECRET_SCAN=PASS"
+
+      - name: Security jest config
+        run: pnpm exec jest --config jest.security.config.js --ci --runInBand --forceExit --coverage=false
+
+      - name: Instagram standalone scopes
+        run: pnpm exec jest --config jest.security.config.js --ci --runInBand --forceExit --coverage=false --testPathPattern instagram.standalone.scopes.spec.ts
+
+      - name: Credential crypto
+        run: pnpm exec jest --config jest.security.config.js --ci --runInBand --forceExit --coverage=false --testPathPattern provider.credential.spec.ts
+
+      - name: Deployment gates
+        run: pnpm exec jest --config jest.security.config.js --ci --runInBand --forceExit --coverage=false --testPathPattern deployment.gates.spec.ts
+
+      - name: Refresh behavior
+        run: pnpm exec jest --config jest.security.config.js --ci --runInBand --forceExit --coverage=false --testPathPattern 'refresh\.(channel\.outcome|integration\.service)\.spec\.ts'
+
+      - name: Build
+        run: pnpm run build

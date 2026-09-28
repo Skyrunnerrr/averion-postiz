@@ -4,6 +4,7 @@ module.exports = {
   setupFiles: ['reflect-metadata'],
   testMatch: [
     '<rootDir>/libraries/helpers/src/auth/provider.credential.spec.ts',
+    '<rootDir>/libraries/helpers/src/auth/secret.canary.spec.ts',
     '<rootDir>/libraries/helpers/src/auth/deployment.gates.spec.ts',
     '<rootDir>/libraries/nestjs-libraries/src/integrations/social/instagram.standalone.scopes.spec.ts',
     '<rootDir>/libraries/helpers/src/utils/refresh.channel.outcome.spec.ts',
