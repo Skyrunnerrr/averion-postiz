@@ -7,6 +7,7 @@ module.exports = {
     '<rootDir>/libraries/helpers/src/auth/deployment.gates.spec.ts',
     '<rootDir>/libraries/nestjs-libraries/src/integrations/social/instagram.standalone.scopes.spec.ts',
     '<rootDir>/libraries/helpers/src/utils/refresh.channel.outcome.spec.ts',
+    '<rootDir>/libraries/nestjs-libraries/src/integrations/refresh.integration.service.spec.ts',
   ],
   transform: {
     '^.+\\.ts$': [

@@ -118,7 +118,9 @@ export class PostsService {
       forceRefresh
     ) {
       const data = await this._refreshIntegrationService.refresh(
-        getIntegration
+        getIntegration,
+        '',
+        { disconnectOnFailure: false }
       );
       const outcome = refreshChannelOutcome(data);
       if (outcome.kind === 'empty') {
@@ -192,7 +194,9 @@ export class PostsService {
       forceRefresh
     ) {
       const data = await this._refreshIntegrationService.refresh(
-        getIntegration
+        getIntegration,
+        '',
+        { disconnectOnFailure: false }
       );
       const outcome = refreshChannelOutcome(data);
       if (outcome.kind === 'empty') {

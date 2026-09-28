@@ -1,7 +1,7 @@
 import { refreshChannelOutcome } from './refresh.channel.outcome';
 
 describe('refreshChannelOutcome', () => {
-  it('does not disconnect when refresh returns false', () => {
+  it('classifies a falsy refresh as empty', () => {
     expect(refreshChannelOutcome(false)).toEqual({ kind: 'empty' });
     expect(refreshChannelOutcome(null)).toEqual({ kind: 'empty' });
     expect(refreshChannelOutcome(undefined)).toEqual({ kind: 'empty' });
